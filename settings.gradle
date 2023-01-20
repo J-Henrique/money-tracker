@@ -1,0 +1,16 @@
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "MoneyTracker"
+include ':app'
+include ':designSystem'
+
+include ':tracker'
+
+include ':onboarding'
+include ':onboarding:onboarding_domain'
+include ':onboarding:onboarding_presentation'
