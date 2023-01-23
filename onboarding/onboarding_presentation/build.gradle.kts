@@ -3,5 +3,6 @@ apply {
 }
 
 dependencies {
+    "implementation"(project(Modules.onboardingDomain))
     "implementation"(project(Modules.designSystem))
 }

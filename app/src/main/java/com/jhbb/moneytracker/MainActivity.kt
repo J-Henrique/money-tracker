@@ -6,9 +6,11 @@ import androidx.activity.compose.setContent
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.jhbb.designsystem.ui.theme.MoneyTrackerTheme
-import com.jhbb.onboarding_presentation.navigation.OnboardingRoute
+import com.jhbb.onboarding_presentation.navigation.OnboardingDestinations
 import com.jhbb.onboarding_presentation.navigation.onboardingGraph
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,7 +19,7 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 NavHost(
                     navController = navController,
-                    startDestination = OnboardingRoute.USERNAME
+                    startDestination = OnboardingDestinations.USERNAME_MESSAGE_ROUTE
                 ) {
                     onboardingGraph(navController)
                 }

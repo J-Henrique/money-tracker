@@ -50,12 +50,17 @@ dependencies {
     implementation(Compose.activityCompose)
     implementation(Compose.viewModelCompose)
     implementation(Compose.navigation)
+    implementation(Compose.hiltNavigationCompose)
+
+    implementation(Google.systemUiController)
 
     implementation(DaggerHilt.hiltAndroid)
     kapt(DaggerHilt.hiltCompiler)
 
     debugImplementation(Testing.composeUiTestManifest)
     debugImplementation(Compose.tooling)
+
+    coreLibraryDesugaring(Build.desugarJdkLibs)
 
     testImplementation(Testing.junit4)
     testImplementation(Testing.junitAndroidExt)
