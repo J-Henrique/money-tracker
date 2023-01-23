@@ -51,6 +51,7 @@ dependencies {
     implementation(Compose.viewModelCompose)
     implementation(Compose.navigation)
     implementation(Compose.hiltNavigationCompose)
+    implementation(Compose.runtime)
 
     implementation(Google.systemUiController)
 

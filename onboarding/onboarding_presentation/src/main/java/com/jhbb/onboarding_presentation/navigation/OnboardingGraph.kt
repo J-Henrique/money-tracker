@@ -12,7 +12,7 @@ fun NavGraphBuilder.onboardingGraph(navController: NavController) {
     }
     composable(OnboardingDestinations.USERNAME_FIELD_ROUTE) {
         UserNameFieldScreen(
-            onNextButtonClick = { navController.navigate(OnboardingDestinations.CATEGORIES_ROUTE) }
+            onNext = { navController.navigate(OnboardingDestinations.CATEGORIES_ROUTE) }
         )
     }
     composable(OnboardingDestinations.CATEGORIES_ROUTE) {

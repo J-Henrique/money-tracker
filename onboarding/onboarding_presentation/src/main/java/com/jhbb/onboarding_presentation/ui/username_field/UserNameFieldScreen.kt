@@ -29,15 +29,22 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.jhbb.designsystem.components.MoneyTrackerTopBar
 import com.jhbb.designsystem.ui.theme.MoneyTrackerTheme
 import com.jhbb.designsystem.utils.MultiThemePreview
+import com.jhbb.designsystem.utils.UiEvent
+import com.jhbb.onboarding_domain.use_case.FilterLettersUseCase
 
 @Composable
 fun UserNameFieldScreen(
-    onNextButtonClick: () -> Unit,
-    viewModel: UserNameFieldViewModel = hiltViewModel<UserNameFieldViewModelImpl>()
+    onNext: () -> Unit,
+    viewModel: UserNameFieldViewModel = hiltViewModel()
 ) {
     val focusRequester = remember { FocusRequester() }
     LaunchedEffect(true) {
         focusRequester.requestFocus()
+        viewModel.uiEvent.collect {
+            when (it) {
+                UiEvent.NavigateForward -> onNext()
+            }
+        }
     }
 
     Scaffold(
@@ -47,7 +54,11 @@ fun UserNameFieldScreen(
         },
         floatingActionButton = {
             if (viewModel.username.length >= 3) {
-                FloatingActionButton(onClick = { onNextButtonClick() }) {
+                FloatingActionButton(
+                    onClick = {
+                        viewModel.onEvent(UserNameFieldScreenEvent.OnNextButtonClick)
+                    }
+                ) {
                     Icon(imageVector = Icons.Default.ArrowForward, contentDescription = null)
                 }
             }
@@ -63,7 +74,9 @@ fun UserNameFieldScreen(
         ) {
             BasicTextField(
                 value = viewModel.username,
-                onValueChange = viewModel::onEnterText,
+                onValueChange = {
+                    viewModel.onEvent(UserNameFieldScreenEvent.OnEnterText(it))
+                },
                 textStyle = MaterialTheme.typography.h1.copy(
                     color = MaterialTheme.colors.onBackground,
                     textAlign = TextAlign.Center
@@ -87,11 +100,8 @@ fun UserNameFieldScreen(
 fun PreviewUserNameFieldScreen() {
     MoneyTrackerTheme {
         UserNameFieldScreen(
-            onNextButtonClick = {},
-            viewModel = object : UserNameFieldViewModel {
-                override val username = "User"
-                override fun onEnterText(text: String) {}
-            }
+            onNext = {},
+            viewModel = UserNameFieldViewModel(FilterLettersUseCase())
         )
     }
 }
