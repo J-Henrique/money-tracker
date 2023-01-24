@@ -19,7 +19,7 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 NavHost(
                     navController = navController,
-                    startDestination = OnboardingDestinations.USERNAME_MESSAGE_ROUTE
+                    startDestination = OnboardingDestinations.SPLASH_ROUTE
                 ) {
                     onboardingGraph(navController)
                 }
