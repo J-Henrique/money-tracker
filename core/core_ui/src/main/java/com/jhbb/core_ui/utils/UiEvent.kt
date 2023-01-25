@@ -1,4 +1,4 @@
-package com.jhbb.designsystem.utils
+package com.jhbb.core_ui.utils
 
 sealed interface UiEvent {
     object NavigateForward : UiEvent

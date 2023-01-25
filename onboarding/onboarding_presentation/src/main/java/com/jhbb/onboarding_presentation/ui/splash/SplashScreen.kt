@@ -14,8 +14,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.unit.dp
+import com.jhbb.core_ui.utils.MultiThemePreview
 import com.jhbb.designsystem.ui.theme.MoneyTrackerTheme
-import com.jhbb.designsystem.utils.MultiThemePreview
 
 @Composable
 fun SplashScreen(

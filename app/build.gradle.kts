@@ -52,6 +52,9 @@ android {
 }
 
 dependencies {
+    implementation(project(Modules.onboardingPresentation))
+    implementation(project(Modules.designSystem))
+
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.appCompat)
 
@@ -68,8 +71,7 @@ dependencies {
     implementation(DaggerHilt.hiltAndroid)
     kapt(DaggerHilt.hiltCompiler)
 
-    implementation(project(Modules.onboardingPresentation))
-    implementation(project(Modules.designSystem))
+
 
     debugImplementation(Testing.composeUiTestManifest)
     debugImplementation(Compose.tooling)

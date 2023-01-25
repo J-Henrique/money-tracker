@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jhbb.designsystem.utils.UiEvent
+import com.jhbb.core_ui.utils.UiEvent
 import com.jhbb.onboarding_domain.repository.OnboardingUserInfoRepository
 import com.jhbb.onboarding_domain.use_case.FilterLettersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -6,4 +6,5 @@ dependencies {
     "implementation"(project(Modules.onboardingDomain))
     "implementation"(project(Modules.onboardingData))
     "implementation"(project(Modules.designSystem))
+    "implementation"(project(Modules.coreUi))
 }

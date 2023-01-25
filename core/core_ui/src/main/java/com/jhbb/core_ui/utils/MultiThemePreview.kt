@@ -1,4 +1,4 @@
-package com.jhbb.designsystem.utils
+package com.jhbb.core_ui.utils
 
 import android.content.res.Configuration
 import androidx.compose.ui.tooling.preview.Preview

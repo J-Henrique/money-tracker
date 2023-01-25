@@ -26,10 +26,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.jhbb.core_ui.utils.MultiThemePreview
+import com.jhbb.core_ui.utils.UiEvent
 import com.jhbb.designsystem.components.MoneyTrackerTopBar
 import com.jhbb.designsystem.ui.theme.MoneyTrackerTheme
-import com.jhbb.designsystem.utils.MultiThemePreview
-import com.jhbb.designsystem.utils.UiEvent
 
 @Composable
 fun UserNameFieldScreen(

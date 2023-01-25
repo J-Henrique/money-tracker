@@ -10,9 +10,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.jhbb.core_ui.utils.MultiThemePreview
 import com.jhbb.designsystem.R
 import com.jhbb.designsystem.ui.theme.MoneyTrackerTheme
-import com.jhbb.designsystem.utils.MultiThemePreview
 
 @Composable
 fun MoneyTrackerTopBar(
