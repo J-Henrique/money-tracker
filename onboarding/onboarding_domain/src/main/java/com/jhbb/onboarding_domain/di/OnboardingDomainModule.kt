@@ -11,9 +11,9 @@ import dagger.hilt.android.scopes.ViewModelScoped
 @InstallIn(ViewModelComponent::class)
 object OnboardingDomainModule {
 
-    @ViewModelScoped
     @Provides
-    fun providesFilterLettersUseCase(): FilterLettersUseCase {
+    @ViewModelScoped
+    fun provideFilterLettersUseCase(): FilterLettersUseCase {
         return FilterLettersUseCase()
     }
 }

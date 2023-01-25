@@ -2,8 +2,9 @@ package com.jhbb.core_data.preferences
 
 import android.content.SharedPreferences
 import com.jhbb.core_domain.preferences.Preferences
+import javax.inject.Inject
 
-class PreferencesImpl(
+class PreferencesImpl @Inject constructor(
     private val sharedPreferences: SharedPreferences
 ): Preferences {
 
