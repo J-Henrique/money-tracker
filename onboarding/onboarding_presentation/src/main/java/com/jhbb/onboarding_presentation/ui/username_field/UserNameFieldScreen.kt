@@ -30,7 +30,6 @@ import com.jhbb.designsystem.components.MoneyTrackerTopBar
 import com.jhbb.designsystem.ui.theme.MoneyTrackerTheme
 import com.jhbb.designsystem.utils.MultiThemePreview
 import com.jhbb.designsystem.utils.UiEvent
-import com.jhbb.onboarding_domain.use_case.FilterLettersUseCase
 
 @Composable
 fun UserNameFieldScreen(
@@ -99,9 +98,9 @@ fun UserNameFieldScreen(
 @Composable
 fun PreviewUserNameFieldScreen() {
     MoneyTrackerTheme {
-        UserNameFieldScreen(
-            onNext = {},
-            viewModel = UserNameFieldViewModel(FilterLettersUseCase())
-        )
+//        UserNameFieldScreen(
+//            onNext = {},
+//            viewModel = UserNameFieldViewModel(FilterLettersUseCase())
+//        )
     }
 }

@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jhbb.designsystem.utils.UiEvent
+import com.jhbb.onboarding_domain.repository.OnboardingUserInfoRepository
 import com.jhbb.onboarding_domain.use_case.FilterLettersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -15,7 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UserNameFieldViewModel @Inject constructor(
-    private val filterLettersUseCase: FilterLettersUseCase
+    private val filterLettersUseCase: FilterLettersUseCase,
+    private val onboardingUserInfoRepository: OnboardingUserInfoRepository
 ): ViewModel() {
     var username by mutableStateOf("")
         private set
@@ -30,6 +32,7 @@ class UserNameFieldViewModel @Inject constructor(
             }
             UserNameFieldScreenEvent.OnNextButtonClick -> {
                 viewModelScope.launch {
+                    onboardingUserInfoRepository.saveUserName(username)
                     _uiEvent.emit(UiEvent.NavigateForward)
                 }
             }
