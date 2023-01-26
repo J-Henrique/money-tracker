@@ -25,23 +25,23 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.jhbb.core_ui.utils.MultiThemePreview
 import com.jhbb.core_ui.utils.UiEvent
 import com.jhbb.designsystem.components.MoneyTrackerTopBar
 import com.jhbb.designsystem.ui.theme.MoneyTrackerTheme
+import kotlinx.coroutines.flow.MutableSharedFlow
 
 @Composable
 fun UserNameFieldScreen(
-    onNext: () -> Unit,
-    viewModel: UserNameFieldViewModel = hiltViewModel()
+    username: String,
+    actions: UserNameFieldActions
 ) {
     val focusRequester = remember { FocusRequester() }
     LaunchedEffect(true) {
         focusRequester.requestFocus()
-        viewModel.uiEvent.collect {
+        actions.uiEvent.collect {
             when (it) {
-                UiEvent.NavigateForward -> onNext()
+                UiEvent.NavigateForward -> actions.onNext()
             }
         }
     }
@@ -52,10 +52,10 @@ fun UserNameFieldScreen(
             MoneyTrackerTopBar()
         },
         floatingActionButton = {
-            if (viewModel.username.length >= 3) {
+            if (username.length >= 3) {
                 FloatingActionButton(
                     onClick = {
-                        viewModel.onEvent(UserNameFieldScreenEvent.OnNextButtonClick)
+                        actions.onEvent(UserNameFieldScreenEvent.OnNextButtonClick)
                     }
                 ) {
                     Icon(imageVector = Icons.Default.ArrowForward, contentDescription = null)
@@ -72,9 +72,9 @@ fun UserNameFieldScreen(
             verticalArrangement = Arrangement.Center
         ) {
             BasicTextField(
-                value = viewModel.username,
+                value = username,
                 onValueChange = {
-                    viewModel.onEvent(UserNameFieldScreenEvent.OnEnterText(it))
+                    actions.onEvent(UserNameFieldScreenEvent.OnEnterText(it))
                 },
                 textStyle = MaterialTheme.typography.h1.copy(
                     color = MaterialTheme.colors.onBackground,
@@ -98,9 +98,13 @@ fun UserNameFieldScreen(
 @Composable
 fun PreviewUserNameFieldScreen() {
     MoneyTrackerTheme {
-//        UserNameFieldScreen(
-//            onNext = {},
-//            viewModel = UserNameFieldViewModel(FilterLettersUseCase())
-//        )
+        UserNameFieldScreen(
+            username = "User Name",
+            actions = UserNameFieldActions(
+                onNext = {},
+                uiEvent = MutableSharedFlow(),
+                onEvent = {}
+            )
+        )
     }
 }
