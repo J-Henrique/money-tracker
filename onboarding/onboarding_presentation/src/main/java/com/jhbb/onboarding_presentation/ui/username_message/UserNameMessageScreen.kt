@@ -17,9 +17,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.jhbb.core_ui.ui.components.MoneyTrackerTopBar
+import com.jhbb.core_ui.ui.theme.MoneyTrackerTheme
 import com.jhbb.core_ui.utils.MultiThemePreview
-import com.jhbb.designsystem.components.MoneyTrackerTopBar
-import com.jhbb.designsystem.ui.theme.MoneyTrackerTheme
 import com.jhbb.onboarding_presentation.R
 import kotlinx.coroutines.delay
 

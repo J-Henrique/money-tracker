@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.jhbb.designsystem.ui.theme.MoneyTrackerTheme
+import com.jhbb.core_ui.ui.theme.MoneyTrackerTheme
 import com.jhbb.onboarding_presentation.navigation.OnboardingDestinations
 import com.jhbb.onboarding_presentation.navigation.onboardingGraph
 import dagger.hilt.android.AndroidEntryPoint

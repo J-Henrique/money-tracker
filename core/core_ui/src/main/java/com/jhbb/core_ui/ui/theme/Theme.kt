@@ -1,4 +1,4 @@
-package com.jhbb.designsystem.ui.theme
+package com.jhbb.core_ui.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme

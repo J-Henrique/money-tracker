@@ -7,15 +7,15 @@ dependencyResolutionManagement {
 }
 rootProject.name = "MoneyTracker"
 include ':app'
-include ':core'
-include ':designSystem'
 
-include ':tracker'
+include ':core'
+include ':core:core_data'
+include ':core:core_domain'
+include ':core:core_ui'
 
 include ':onboarding'
 include ':onboarding:onboarding_domain'
 include ':onboarding:onboarding_data'
 include ':onboarding:onboarding_presentation'
-include ':core:core_data'
-include ':core:core_domain'
-include ':core:core_ui'
+
+include ':tracker'

@@ -60,7 +60,7 @@ android {
 
 dependencies {
     implementation(project(Modules.onboardingPresentation))
-    implementation(project(Modules.designSystem))
+    implementation(project(Modules.coreUi))
 
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.appCompat)
