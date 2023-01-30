@@ -3,8 +3,13 @@ package com.jhbb.core_data.di
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.room.Room
+import com.jhbb.core_data.database.MoneyTrackerDatabase
+import com.jhbb.core_data.database.dao.CategoryDao
 import com.jhbb.core_data.preferences.PreferencesImpl
+import com.jhbb.core_data.repository.CategoryRepositoryImpl
 import com.jhbb.core_domain.preferences.Preferences
+import com.jhbb.core_domain.repository.CategoryRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -23,6 +28,22 @@ object PersistenceModule {
     fun provideSharedPreference(app: Application): SharedPreferences {
         return app.getSharedPreferences(SHARED_PREFERENCES_FILE_NAME, Context.MODE_PRIVATE)
     }
+
+    @Provides
+    @Singleton
+    fun provideDatabase(app: Application): MoneyTrackerDatabase {
+        return Room.databaseBuilder(
+            app.applicationContext,
+            MoneyTrackerDatabase::class.java,
+            "MoneyTracker.db"
+        ).createFromAsset("database/money_tracker.db").build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideCategoryDao(db: MoneyTrackerDatabase): CategoryDao {
+        return db.categoryDao
+    }
 }
 
 @Module
@@ -31,4 +52,10 @@ internal abstract class PreferenceModule {
     @Binds
     @Singleton
     abstract fun bindPreferences(pref: PreferencesImpl): Preferences
+
+    @Binds
+    @Singleton
+    abstract fun bindCategoryRepository(
+        repository: CategoryRepositoryImpl
+    ): CategoryRepository
 }

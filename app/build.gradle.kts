@@ -20,6 +20,13 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        javaCompileOptions {
+            annotationProcessorOptions {
+                compilerArgumentProviders(
+                    RoomSchemaArgProvider(File(projectDir, "schemas"))
+                )
+            }
+        }
     }
 
     buildTypes {
@@ -84,4 +91,14 @@ dependencies {
     androidTestImplementation(Testing.composeJunit)
     androidTestImplementation(Testing.junitAndroidExt)
     androidTestImplementation(Testing.testRunner)
+}
+
+class RoomSchemaArgProvider(
+    @get:InputDirectory
+    @get:PathSensitive(PathSensitivity.RELATIVE)
+    val schemaDir: File
+) : CommandLineArgumentProvider {
+    override fun asArguments(): Iterable<String> {
+        return listOf("-Aroom.schemaLocation=${schemaDir.path}")
+    }
 }
