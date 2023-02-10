@@ -1,16 +1,15 @@
 package com.jhbb.core_data.database.dao
 
 import androidx.room.Dao
-import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.jhbb.core_data.database.entity.CategoryEntity
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CategoryDao {
-    @Insert
-    suspend fun insertCategory(category: CategoryEntity)
+    @Query("SELECT * FROM category")
+    suspend fun selectCategory(): List<CategoryEntity>
 
-    @Query("SELECT * from category")
-    fun selectCategory(): Flow<List<CategoryEntity>>
+    @Update
+    suspend fun updateCategories(entities: List<CategoryEntity>)
 }
