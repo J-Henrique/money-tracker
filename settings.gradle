@@ -19,3 +19,4 @@ include ':onboarding:onboarding_data'
 include ':onboarding:onboarding_presentation'
 
 include ':tracker'
+include ':tracker:tracker_presentation'

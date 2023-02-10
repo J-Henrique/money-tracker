@@ -60,6 +60,7 @@ android {
 
 dependencies {
     implementation(project(Modules.onboardingPresentation))
+    implementation(project(Modules.trackerPresentation))
     implementation(project(Modules.coreUi))
 
     implementation(AndroidX.coreKtx)

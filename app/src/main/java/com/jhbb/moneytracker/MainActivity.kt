@@ -8,6 +8,8 @@ import androidx.navigation.compose.rememberNavController
 import com.jhbb.core_ui.ui.theme.MoneyTrackerTheme
 import com.jhbb.onboarding_presentation.navigation.OnboardingDestinations
 import com.jhbb.onboarding_presentation.navigation.onboardingGraph
+import com.jhbb.tracker_presentation.navigation.TrackerDestinations
+import com.jhbb.tracker_presentation.navigation.trackerGraph
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,7 +23,8 @@ class MainActivity : ComponentActivity() {
                     navController = navController,
                     startDestination = OnboardingDestinations.SPLASH_ROUTE
                 ) {
-                    onboardingGraph(navController)
+                    onboardingGraph(navController, TrackerDestinations.HOME_ROUTE) // todo
+                    trackerGraph(navController)
                 }
             }
         }
