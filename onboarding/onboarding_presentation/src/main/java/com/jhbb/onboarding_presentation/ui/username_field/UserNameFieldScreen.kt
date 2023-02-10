@@ -34,7 +34,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 @Composable
 fun UserNameFieldScreen(
     username: String,
-    actions: UserNameFieldActions
+    actions: UserNameFieldScreenActions
 ) {
     val focusRequester = remember { FocusRequester() }
     LaunchedEffect(true) {
@@ -100,7 +100,7 @@ fun PreviewUserNameFieldScreen() {
     MoneyTrackerTheme {
         UserNameFieldScreen(
             username = "User Name",
-            actions = UserNameFieldActions(
+            actions = UserNameFieldScreenActions(
                 onNext = {},
                 uiEvent = MutableSharedFlow(),
                 onEvent = {}
