@@ -25,7 +25,7 @@ import com.jhbb.core_ui.utils.MultiThemePreview
 import com.jhbb.onboarding_presentation.R
 
 @Composable
-fun UserNameMessageScreen(
+internal fun UserNameMessageScreen(
     onNext: () -> Unit
 ) {
     val animateComponents = remember {

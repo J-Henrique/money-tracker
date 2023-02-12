@@ -32,7 +32,7 @@ import com.jhbb.core_ui.utils.UiEvent
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 @Composable
-fun UserNameFieldScreen(
+internal fun UserNameFieldScreen(
     username: String,
     actions: UserNameFieldScreenActions
 ) {

@@ -18,7 +18,7 @@ import com.jhbb.core_ui.ui.theme.MoneyTrackerTheme
 import com.jhbb.core_ui.utils.MultiThemePreview
 
 @Composable
-fun SplashScreen(
+internal fun SplashScreen(
     onFinishAnimation: () -> Unit
 ) {
     val animationDuration = 1500

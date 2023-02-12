@@ -34,7 +34,7 @@ import com.jhbb.onboarding_presentation.R
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 @Composable
-fun CategoriesScreen(
+internal fun CategoriesScreen(
     state: CategoriesScreenState,
     actions: CategoriesScreenActions,
 ) {
