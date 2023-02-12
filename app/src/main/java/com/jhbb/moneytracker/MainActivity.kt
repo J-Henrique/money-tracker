@@ -23,7 +23,9 @@ class MainActivity : ComponentActivity() {
                     navController = navController,
                     startDestination = OnboardingDestinations.SPLASH_ROUTE
                 ) {
-                    onboardingGraph(navController, TrackerDestinations.HOME_ROUTE) // todo
+                    onboardingGraph(navController) {
+                        navController.navigate(TrackerDestinations.HOME_TRACKER_ROUTE)
+                    }
                     trackerGraph(navController)
                 }
             }

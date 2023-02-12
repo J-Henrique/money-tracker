@@ -6,7 +6,7 @@ import androidx.navigation.compose.composable
 import com.jhbb.tracker_presentation.ui.home.HomeScreen
 
 fun NavGraphBuilder.trackerGraph(navController: NavController) {
-    composable(route = TrackerDestinations.HOME_ROUTE) {
+    composable(route = TrackerDestinations.HOME_TRACKER_ROUTE) {
         HomeScreen()
     }
 }

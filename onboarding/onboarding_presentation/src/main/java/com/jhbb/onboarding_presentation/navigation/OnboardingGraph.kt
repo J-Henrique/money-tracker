@@ -13,7 +13,10 @@ import com.jhbb.onboarding_presentation.ui.username_field.UserNameFieldScreenAct
 import com.jhbb.onboarding_presentation.ui.username_field.UserNameFieldViewModel
 import com.jhbb.onboarding_presentation.ui.username_message.UserNameMessageScreen
 
-fun NavGraphBuilder.onboardingGraph(navController: NavController, goToTracker: String) {
+fun NavGraphBuilder.onboardingGraph(
+    navController: NavController,
+    navigateToHomeTracker: () -> Unit
+) {
     composable(OnboardingDestinations.SPLASH_ROUTE) {
         SplashScreen {
             navController.navigate(OnboardingDestinations.USERNAME_MESSAGE_ROUTE) {
@@ -39,7 +42,7 @@ fun NavGraphBuilder.onboardingGraph(navController: NavController, goToTracker: S
     composable(OnboardingDestinations.CATEGORIES_ROUTE) {
         val viewModel = hiltViewModel<CategoriesViewModel>()
         val actions = CategoriesScreenActions(
-            onNext = { navController.navigate(goToTracker) },
+            onNext = { navigateToHomeTracker() },
             uiEvent = viewModel.uiEvent,
             onEvent = viewModel::onEvent
         )
