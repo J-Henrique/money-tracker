@@ -7,8 +7,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -64,7 +64,7 @@ internal fun HomeScreen(
                         selected = true,
                         icon = {
                             Icon(
-                                imageVector = Icons.Default.Close,
+                                imageVector = Icons.Default.Person,
                                 contentDescription = null
                             )
                         },
@@ -96,17 +96,9 @@ internal fun HomeScreen(
                 .padding(16.dp),
             horizontalAlignment = Alignment.Start
         ) {
-            // TODO: extract list
             MoneyTrackerDropDownMenu(
                 defaultText = "Mês",
-                items = listOf(
-                    "Janeiro",
-                    "Fevereiro",
-                    "Março",
-                    "Abril",
-                    "Maio",
-                    "Junho",
-                )
+                items = state.getMonths()
             )
             LazyColumn(
                 contentPadding = PaddingValues(vertical = 16.dp),
