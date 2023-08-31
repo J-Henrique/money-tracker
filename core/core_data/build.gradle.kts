@@ -1,5 +1,13 @@
+plugins {
+    id("com.android.library")
+}
+
 apply {
     from("$rootDir/scripts/base-module.gradle")
+}
+
+android {
+    namespace = "com.jhbb.core_data"
 }
 
 dependencies {

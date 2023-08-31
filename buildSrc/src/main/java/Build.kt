@@ -1,5 +1,5 @@
 object Build {
-    private const val androidBuildToolsVersion = "7.4.0"
+    private const val androidBuildToolsVersion = "8.1.0"
     const val androidBuildTools = "com.android.tools.build:gradle:$androidBuildToolsVersion"
 
     private const val desugarJdkLibsVersion = "2.0.0"
