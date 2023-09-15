@@ -33,16 +33,12 @@ android {
 }
 
 dependencies {
-    implementation(AndroidX.coreKtx)
-    implementation(AndroidX.appCompat)
+    implementation(libs.androidx.coreKtx)
+    implementation(libs.androidx.appcompat)
 
-    implementation(DaggerHilt.hiltAndroid)
-    kapt(DaggerHilt.hiltCompiler)
+    implementation(libs.dagger.hilt)
+    kapt(libs.dagger.hiltCompiler)
 
-    testImplementation(Testing.junit4)
-    testImplementation(Testing.junitAndroidExt)
-    testImplementation(Testing.coroutines)
-
-    androidTestImplementation(Testing.junitAndroidExt)
-    androidTestImplementation(Testing.testRunner)
+    testImplementation(libs.junit.junit4)
+    testImplementation(libs.kotlin.test.coroutines)
 }

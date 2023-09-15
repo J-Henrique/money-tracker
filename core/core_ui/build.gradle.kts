@@ -12,5 +12,5 @@ android {
 
 dependencies {
     "implementation"(project(Modules.coreDomain))
-    "implementation"(Lottie.lottie)
+    "implementation"(libs.lottie.lottieCompose)
 }

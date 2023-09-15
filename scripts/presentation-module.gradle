@@ -31,7 +31,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     composeOptions {
-        kotlinCompilerExtensionVersion Compose.composeCompilerVersion
+        kotlinCompilerExtensionVersion = "1.3.2"
     }
     kotlinOptions {
         jvmTarget = "1.8"
@@ -39,36 +39,33 @@ android {
 }
 
 dependencies {
-    implementation(AndroidX.coreKtx)
-    implementation(AndroidX.appCompat)
+    implementation(libs.androidx.coreKtx)
+    implementation(libs.androidx.appcompat)
 
-    def composeBom = platform(Compose.composeBom)
+    def composeBom = platform(libs.compose.bom)
     implementation(composeBom)
-    implementation(Compose.ui)
-    implementation(Compose.material)
-    implementation(Compose.toolingPreview)
-    implementation(Compose.activityCompose)
-    implementation(Compose.viewModelCompose)
-    implementation(Compose.navigation)
-    implementation(Compose.hiltNavigationCompose)
-    implementation(Compose.runtime)
+    implementation(libs.compose.ui)
+    implementation(libs.compose.material)
+    implementation(libs.compose.toolingPreview)
+    implementation(libs.compose.activity)
+    implementation(libs.compose.lifecycle.viewmodel)
+    implementation(libs.compose.navigation)
+    implementation(libs.compose.hilt.navigation)
+    implementation(libs.compose.runtime)
 
-    implementation(Google.systemUiController)
+    implementation(libs.accompanist.systemUiController)
 
-    implementation(DaggerHilt.hiltAndroid)
-    kapt(DaggerHilt.hiltCompiler)
+    implementation(libs.dagger.hilt)
+    kapt(libs.dagger.hiltCompiler)
 
-    debugImplementation(Testing.composeUiTestManifest)
-    debugImplementation(Compose.tooling)
+    debugImplementation(libs.compose.test.junit4)
+    debugImplementation(libs.compose.tooling)
 
-    coreLibraryDesugaring(Build.desugarJdkLibs)
+    coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
 
-    testImplementation(Testing.junit4)
-    testImplementation(Testing.junitAndroidExt)
-    testImplementation(Testing.coroutines)
+    testImplementation(libs.junit.junit4)
+    testImplementation(libs.kotlin.test.coroutines)
 
     androidTestImplementation(composeBom)
-    androidTestImplementation(Testing.composeJunit)
-    androidTestImplementation(Testing.junitAndroidExt)
-    androidTestImplementation(Testing.testRunner)
+    androidTestImplementation(libs.compose.test.junit4)
 }

@@ -46,9 +46,9 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Compose.composeCompilerVersion
+        kotlinCompilerExtensionVersion = "1.3.2"
     }
-    packagingOptions {
+    packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
@@ -63,35 +63,30 @@ dependencies {
     implementation(project(Modules.trackerPresentation))
     implementation(project(Modules.coreUi))
 
-    implementation(AndroidX.coreKtx)
-    implementation(AndroidX.appCompat)
+    implementation(libs.androidx.coreKtx)
+    implementation(libs.androidx.appcompat)
 
-    val composeBom = platform(Compose.composeBom)
+    val composeBom = platform(libs.compose.bom)
     implementation(composeBom)
-    implementation(Compose.ui)
-    implementation(Compose.material)
-    implementation(Compose.toolingPreview)
-    implementation(Compose.activityCompose)
-    implementation(Compose.viewModelCompose)
-    implementation(Compose.navigation)
-    implementation(Compose.runtime)
+    implementation(libs.compose.ui)
+    implementation(libs.compose.material)
+    implementation(libs.compose.toolingPreview)
+    implementation(libs.compose.activity)
+    implementation(libs.compose.lifecycle.viewmodel)
+    implementation(libs.compose.navigation)
+    implementation(libs.compose.runtime)
 
-    implementation(DaggerHilt.hiltAndroid)
-    kapt(DaggerHilt.hiltCompiler)
+    implementation(libs.dagger.hilt)
+    kapt(libs.dagger.hiltCompiler)
 
+    debugImplementation(libs.compose.test.manifest)
+    debugImplementation(libs.compose.tooling)
 
-
-    debugImplementation(Testing.composeUiTestManifest)
-    debugImplementation(Compose.tooling)
-
-    testImplementation(Testing.junit4)
-    testImplementation(Testing.junitAndroidExt)
-    testImplementation(Testing.coroutines)
+    testImplementation(libs.junit.junit4)
+    testImplementation(libs.kotlin.test.coroutines)
 
     androidTestImplementation(composeBom)
-    androidTestImplementation(Testing.composeJunit)
-    androidTestImplementation(Testing.junitAndroidExt)
-    androidTestImplementation(Testing.testRunner)
+    androidTestImplementation(libs.compose.test.junit4)
 }
 
 class RoomSchemaArgProvider(
