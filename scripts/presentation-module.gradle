@@ -39,19 +39,11 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.coreKtx)
-    implementation(libs.androidx.appcompat)
+    implementation(libs.bundles.base)
 
     def composeBom = platform(libs.compose.bom)
     implementation(composeBom)
-    implementation(libs.compose.ui)
-    implementation(libs.compose.material)
-    implementation(libs.compose.toolingPreview)
-    implementation(libs.compose.activity)
-    implementation(libs.compose.lifecycle.viewmodel)
-    implementation(libs.compose.navigation)
-    implementation(libs.compose.hilt.navigation)
-    implementation(libs.compose.runtime)
+    implementation(libs.bundles.compose)
 
     implementation(libs.accompanist.systemUiController)
 
@@ -63,8 +55,7 @@ dependencies {
 
     coreLibraryDesugaring(libs.android.tools.desugarJdkLibs)
 
-    testImplementation(libs.junit.junit4)
-    testImplementation(libs.kotlin.test.coroutines)
+    testImplementation(libs.bundles.test)
 
     androidTestImplementation(composeBom)
     androidTestImplementation(libs.compose.test.junit4)

@@ -81,3 +81,8 @@ junit-junit4 = { group = "junit", name = "junit", version.ref = "junitVersion" }
 #AndroidX
 androidx-coreKtx = { group = "androidx.core", name = "core-ktx", version.ref = "androidXCoreKtxVersion" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidXAppCompatVersion" }
+
+[bundles]
+base = ["androidx.coreKtx", "androidx.appcompat"]
+test = ["junit.junit4", "kotlin.test.coroutines"]
+compose = ["compose.ui", "compose.material", "compose.toolingPreview", "compose.activity", "compose.lifecycle.viewmodel", "compose.navigation", "compose.hilt.navigation", "compose.runtime"]
