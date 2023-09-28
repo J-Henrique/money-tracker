@@ -9,7 +9,7 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
-private val DarkColorPalette = darkColors(
+private val darkColorPalette = darkColors(
     primary = Teal700,
     primaryVariant = Teal700,
     secondary = BlueGray600,
@@ -22,7 +22,7 @@ private val DarkColorPalette = darkColors(
     error = LightRed
 )
 
-private val LightColorPalette = lightColors(
+private val lightColorPalette = lightColors(
     primary = Teal100,
     primaryVariant = Teal300,
     secondary = BlueGray600,
@@ -38,9 +38,9 @@ private val LightColorPalette = lightColors(
 @Composable
 fun MoneyTrackerTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
     val colors = if (darkTheme) {
-        DarkColorPalette
+        darkColorPalette
     } else {
-        LightColorPalette
+        lightColorPalette
     }
     val systemUiController = rememberSystemUiController()
     SideEffect {
