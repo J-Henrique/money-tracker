@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 data class CategoriesScreenActions(
     val onNext: () -> Unit,
+    val onBack: () -> Unit,
     val uiEvent: Flow<UiEvent>,
     val onEvent: (event: CategoriesScreenEvent) -> Unit
 )

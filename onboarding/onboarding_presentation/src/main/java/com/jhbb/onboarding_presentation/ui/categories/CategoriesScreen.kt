@@ -53,7 +53,10 @@ internal fun CategoriesScreen(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            MoneyTrackerTopBar()
+            MoneyTrackerTopBar(
+                title = stringResource(id = R.string.onboarding_categories_title),
+                onNavigateBack = actions.onBack
+            )
         },
         floatingActionButton = {
             FloatingActionButton(
@@ -113,7 +116,8 @@ fun PreviewCategoriesScreen() {
             actions = CategoriesScreenActions(
                 onNext = {},
                 uiEvent = MutableSharedFlow(),
-                onEvent = {}
+                onEvent = {},
+                onBack = {},
             )
         )
     }

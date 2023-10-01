@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="onboarding_username">Primeiro nos informe seu nome</string>
+    <string name="onboarding_username_title">Identificação</string>
+    <string name="onboarding_username">Informe seu nome</string>
+    <string name="onboarding_categories_title">Categorias</string>
     <string name="onboarding_categories">Agora selecione as categorias</string>
 </resources>

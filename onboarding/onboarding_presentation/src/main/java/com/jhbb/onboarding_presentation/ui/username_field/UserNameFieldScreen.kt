@@ -10,6 +10,8 @@ import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
@@ -20,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
@@ -29,6 +32,7 @@ import com.jhbb.core_ui.ui.components.MoneyTrackerTopBar
 import com.jhbb.core_ui.ui.theme.MoneyTrackerTheme
 import com.jhbb.core_ui.utils.MultiThemePreview
 import com.jhbb.core_ui.utils.UiEvent
+import com.jhbb.onboarding_presentation.R
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 @Composable
@@ -49,7 +53,10 @@ internal fun UserNameFieldScreen(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            MoneyTrackerTopBar()
+            MoneyTrackerTopBar(
+                title = stringResource(id = R.string.onboarding_username_title),
+                onNavigateBack = actions.onBack
+            )
         },
         floatingActionButton = {
             if (username.length >= 3) {
@@ -103,7 +110,8 @@ fun PreviewUserNameFieldScreen() {
             actions = UserNameFieldScreenActions(
                 onNext = {},
                 uiEvent = MutableSharedFlow(),
-                onEvent = {}
+                onEvent = {},
+                onBack = {}
             )
         )
     }

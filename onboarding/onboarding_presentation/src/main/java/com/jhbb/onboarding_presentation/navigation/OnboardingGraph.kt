@@ -31,6 +31,7 @@ fun NavGraphBuilder.onboardingGraph(
         val viewModel = hiltViewModel<UserNameFieldViewModel>()
         val actions = UserNameFieldScreenActions(
             onNext = { navController.navigate(OnboardingDestinations.CATEGORIES_ROUTE) },
+            onBack = { navController.popBackStack() },
             uiEvent = viewModel.uiEvent,
             onEvent = viewModel::onEvent
         )
@@ -43,6 +44,7 @@ fun NavGraphBuilder.onboardingGraph(
         val viewModel = hiltViewModel<CategoriesViewModel>()
         val actions = CategoriesScreenActions(
             onNext = { navigateToHomeTracker() },
+            onBack = { navController.popBackStack() },
             uiEvent = viewModel.uiEvent,
             onEvent = viewModel::onEvent
         )

@@ -35,9 +35,6 @@ internal fun UserNameMessageScreen(
     }
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        topBar = {
-            MoneyTrackerTopBar()
-        },
         floatingActionButton = {
             AnimatedVisibility(visibleState = animateComponents) {
                 FloatingActionButton(onClick = { onNext() }) {
