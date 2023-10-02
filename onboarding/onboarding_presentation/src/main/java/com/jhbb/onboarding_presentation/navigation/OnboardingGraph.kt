@@ -8,6 +8,8 @@ import com.jhbb.onboarding_presentation.ui.categories.CategoriesScreen
 import com.jhbb.onboarding_presentation.ui.categories.CategoriesScreenActions
 import com.jhbb.onboarding_presentation.ui.categories.CategoriesViewModel
 import com.jhbb.onboarding_presentation.ui.splash.SplashScreen
+import com.jhbb.onboarding_presentation.ui.splash.SplashScreenActions
+import com.jhbb.onboarding_presentation.ui.splash.SplashViewModel
 import com.jhbb.onboarding_presentation.ui.username_field.UserNameFieldScreen
 import com.jhbb.onboarding_presentation.ui.username_field.UserNameFieldScreenActions
 import com.jhbb.onboarding_presentation.ui.username_field.UserNameFieldViewModel
@@ -18,11 +20,18 @@ fun NavGraphBuilder.onboardingGraph(
     navigateToHomeTracker: () -> Unit
 ) {
     composable(OnboardingDestinations.SPLASH_ROUTE) {
-        SplashScreen {
-            navController.navigate(OnboardingDestinations.USERNAME_MESSAGE_ROUTE) {
-                popUpTo(OnboardingDestinations.SPLASH_ROUTE) { inclusive = true }
-            }
-        }
+        val viewModel = hiltViewModel<SplashViewModel>()
+        val actions = SplashScreenActions(
+            startHome = { navigateToHomeTracker() },
+            startOnboarding = {
+                navController.navigate(OnboardingDestinations.USERNAME_MESSAGE_ROUTE) {
+                    popUpTo(OnboardingDestinations.SPLASH_ROUTE) { inclusive = true }
+                }
+            },
+            getUserName = viewModel::getUserName,
+            uiEvent = viewModel.uiEvent
+        )
+        SplashScreen(actions = actions)
     }
     composable(OnboardingDestinations.USERNAME_MESSAGE_ROUTE) {
         UserNameMessageScreen { navController.navigate(OnboardingDestinations.USERNAME_FIELD_ROUTE) }

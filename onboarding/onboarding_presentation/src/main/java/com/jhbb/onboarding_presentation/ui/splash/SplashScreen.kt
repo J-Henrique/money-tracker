@@ -9,29 +9,40 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Surface
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.unit.dp
 import com.jhbb.core_ui.ui.theme.MoneyTrackerTheme
 import com.jhbb.core_ui.utils.MultiThemePreview
+import kotlinx.coroutines.flow.MutableSharedFlow
 
 @Composable
 internal fun SplashScreen(
-    onFinishAnimation: () -> Unit
+    actions: SplashScreenActions
 ) {
     val animationDuration = 1500
     var startAnimation by remember { mutableStateOf(false) }
     val alphaAnimation = animateFloatAsState(
         targetValue = if (startAnimation) 1f else 0f,
         animationSpec = tween(animationDuration),
-        finishedListener = {
-            onFinishAnimation()
-        }
+        finishedListener = { actions.getUserName() },
+        label = ""
     )
     LaunchedEffect(true) {
         startAnimation = true
+        actions.uiEvent.collect { event ->
+            when (event) {
+                SplashScreenUiEvent.NavigateToOnboarding -> actions.startOnboarding()
+                SplashScreenUiEvent.NavigateToHome -> actions.startHome()
+            }
+        }
     }
     Surface {
         Box(
@@ -53,6 +64,6 @@ internal fun SplashScreen(
 @Composable
 fun PreviewSplashScreen() {
     MoneyTrackerTheme {
-        SplashScreen {}
+        SplashScreen(SplashScreenActions({}, {}, {}, MutableSharedFlow()))
     }
 }

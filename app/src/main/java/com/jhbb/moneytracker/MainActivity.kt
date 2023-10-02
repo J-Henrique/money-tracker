@@ -24,7 +24,9 @@ class MainActivity : ComponentActivity() {
                     startDestination = OnboardingDestinations.SPLASH_ROUTE
                 ) {
                     onboardingGraph(navController) {
-                        navController.navigate(TrackerDestinations.HOME_TRACKER_ROUTE)
+                        navController.navigate(TrackerDestinations.HOME_TRACKER_ROUTE) {
+                            popUpTo(OnboardingDestinations.SPLASH_ROUTE) { inclusive = true }
+                        }
                     }
                     trackerGraph(navController)
                 }

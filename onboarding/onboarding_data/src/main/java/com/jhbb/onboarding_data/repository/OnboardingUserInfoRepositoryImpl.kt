@@ -10,9 +10,15 @@ class OnboardingUserInfoRepositoryImpl @Inject constructor(
     private val preferences: Preferences,
     private val categoryRepository: CategoryRepository
 ): OnboardingUserInfoRepository {
+
     override fun saveUserName(name: String) {
         preferences.putUserName(name)
     }
+
+    override suspend fun getUserName(): String? {
+        return preferences.getUserName()
+    }
+
     override suspend fun getCategories(): List<Category> {
         return categoryRepository.getCategories()
     }

@@ -15,7 +15,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.jhbb.core_ui.ui.components.MoneyTrackerDropDownMenu
-import com.jhbb.core_ui.ui.components.MoneyTrackerTopBar
 import com.jhbb.core_ui.ui.components.category_card.CategoryUiType
 import com.jhbb.core_ui.ui.components.expense_card.ExpenseCardUiModel
 import com.jhbb.core_ui.ui.components.expense_card.MoneyTrackerExpenseCard
@@ -38,9 +37,6 @@ internal fun HomeScreen(
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        topBar = {
-            MoneyTrackerTopBar()
-        },
         bottomBar = {
             AnimatedVisibility(
                 visible = bottomSheetState.isVisible.not(),
