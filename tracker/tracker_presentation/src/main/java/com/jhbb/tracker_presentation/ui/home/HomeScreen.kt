@@ -115,7 +115,6 @@ internal fun HomeScreen(
                     Button(
                         onClick = { coroutineScope.launch { bottomSheetState.hide() } }
                     ) {
-                        // TODO: modal body
                         Text(text = "Hide Sheet")
                     }
                 }

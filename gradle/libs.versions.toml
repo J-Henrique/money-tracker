@@ -20,6 +20,7 @@ hiltNavigationComposeVersion = "1.0.0"
 kotlinCompilerExtensionVersion = "1.3.2"
 kotlinGradlePluginVersion = "1.7.20"
 hiltAndroidGradlePluginVersion = "2.44.2"
+detektVersion = "1.23.1"
 
 # Test
 junitVersion = "4.13.2"
@@ -81,6 +82,12 @@ junit-junit4 = { group = "junit", name = "junit", version.ref = "junitVersion" }
 #AndroidX
 androidx-coreKtx = { group = "androidx.core", name = "core-ktx", version.ref = "androidXCoreKtxVersion" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidXAppCompatVersion" }
+
+#Detekt
+detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detektVersion" }
+
+[plugins]
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detektVersion" }
 
 [bundles]
 base = ["androidx.coreKtx", "androidx.appcompat"]
