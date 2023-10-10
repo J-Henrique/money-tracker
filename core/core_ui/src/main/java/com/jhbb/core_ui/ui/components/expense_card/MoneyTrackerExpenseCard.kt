@@ -1,5 +1,6 @@
 package com.jhbb.core_ui.ui.components.expense_card
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -30,7 +31,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.jhbb.core_ui.ui.components.category_card.CategoryUiType
 import com.jhbb.core_ui.ui.theme.MoneyTrackerTheme
-import java.text.NumberFormat
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
@@ -58,7 +58,7 @@ fun MoneyTrackerExpenseCard(
                 modifier = Modifier
                     .aspectRatio(1f)
                     .background(
-                        color = cardUiModel.categoryType.tint.copy(alpha = 0.1f),
+                        color = MaterialTheme.colors.onSurface.copy(alpha = 0.8f),
                         shape = RoundedCornerShape(16.dp)
                     )
                     .padding(10.dp)
@@ -87,10 +87,10 @@ fun MoneyTrackerExpenseCard(
                 modifier = Modifier.fillMaxHeight()
             ) {
                 Text(
-                    text = NumberFormat.getCurrencyInstance().format(cardUiModel.value),
+                    text = cardUiModel.monetaryValue,
                     fontWeight = FontWeight.Bold,
                     style = MaterialTheme.typography.h6.copy(
-                        color = Color.Red
+                        color = if (cardUiModel.isExpense) Color.Red else Color.Green
                     )
                 )
                 Text(
@@ -103,6 +103,7 @@ fun MoneyTrackerExpenseCard(
 }
 
 @Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewMoneyTrackerExpenseCard() {
     MoneyTrackerTheme {
@@ -111,7 +112,8 @@ fun PreviewMoneyTrackerExpenseCard() {
             description = "Descrição",
             value = 145.31,
             time = LocalTime.now(),
-            categoryType = CategoryUiType.BAR
+            categoryType = CategoryUiType.SPORTS,
+            isExpense = false
         )
         Column {
             MoneyTrackerExpenseCard(cardHeight = 0.dp, cardUiModel = card)

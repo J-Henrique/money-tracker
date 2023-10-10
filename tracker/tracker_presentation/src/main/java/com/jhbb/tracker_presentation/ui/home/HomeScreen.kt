@@ -24,8 +24,8 @@ import com.jhbb.core_ui.ui.components.expense_card.ExpenseCardUiModel
 import com.jhbb.core_ui.ui.components.expense_card.MoneyTrackerExpenseCard
 import com.jhbb.core_ui.ui.theme.MoneyTrackerTheme
 import com.jhbb.core_ui.utils.MultiThemePreview
-import kotlinx.coroutines.launch
 import java.time.LocalTime
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -124,7 +124,6 @@ internal fun HomeScreen(
                 verticalArrangement = Arrangement.Center,
             ) {
                 Button(onClick = { coroutineScope.launch { bottomSheetState.hide() } }) {
-                    // TODO: modal body
                     Text(text = "Hide Sheet")
                 }
             }
@@ -143,19 +142,22 @@ fun PreviewHomeScreen() {
                     description = "Descrição",
                     value = 145.31,
                     time = LocalTime.now(),
-                    categoryType = CategoryUiType.EDUCATION
+                    categoryType = CategoryUiType.EDUCATION,
+                    isExpense = true
                 ), ExpenseCardUiModel(
                     title = "Titulo",
                     description = "Descrição",
                     value = 145.31,
                     time = LocalTime.now(),
-                    categoryType = CategoryUiType.BAR
+                    categoryType = CategoryUiType.BAR,
+                    isExpense = false
                 ), ExpenseCardUiModel(
                     title = "Titulo",
                     description = "Descrição",
                     value = 145.31,
                     time = LocalTime.now(),
-                    categoryType = CategoryUiType.HEALTH
+                    categoryType = CategoryUiType.HEALTH,
+                    isExpense = true
                 )
             )
         )
