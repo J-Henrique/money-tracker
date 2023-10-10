@@ -86,7 +86,8 @@ fun MoneyTrackerDropDownMenu(
             ) {
                 Icon(
                     imageVector = arrowIcon,
-                    contentDescription = null
+                    contentDescription = null,
+                    tint = MaterialTheme.colors.secondaryVariant
                 )
                 Text(
                     text = selectedItem,

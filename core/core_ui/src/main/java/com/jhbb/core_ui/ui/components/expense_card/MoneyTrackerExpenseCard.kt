@@ -36,16 +36,19 @@ import java.time.format.DateTimeFormatter
 
 @Composable
 fun MoneyTrackerExpenseCard(
-    cardUiModel: ExpenseCardUiModel,
-    cardHeight: Dp = Dp.Unspecified
+    cardUiModel: ExpenseCardUiModel, cardHeight: Dp = Dp.Unspecified
 ) {
-    Surface(modifier = Modifier.padding(2.dp).clip(shape = MaterialTheme.shapes.small)) {
+    Surface(
+        modifier = Modifier
+            .padding(2.dp)
+            .clip(shape = MaterialTheme.shapes.small)
+    ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .heightIn(min = 64.dp, max = 96.dp)
+                .heightIn(min = 90.dp, max = 96.dp)
                 .height(cardHeight)
-                .padding(8.dp)
+                .padding(10.dp)
                 .fillMaxWidth()
         ) {
             Icon(
@@ -58,7 +61,7 @@ fun MoneyTrackerExpenseCard(
                         color = cardUiModel.categoryType.tint.copy(alpha = 0.1f),
                         shape = RoundedCornerShape(16.dp)
                     )
-                    .padding(8.dp)
+                    .padding(10.dp)
             )
             Spacer(modifier = Modifier.width(8.dp))
             Column(
@@ -81,8 +84,7 @@ fun MoneyTrackerExpenseCard(
             Column(
                 horizontalAlignment = Alignment.End,
                 verticalArrangement = Arrangement.SpaceEvenly,
-                modifier = Modifier
-                    .fillMaxHeight()
+                modifier = Modifier.fillMaxHeight()
             ) {
                 Text(
                     text = NumberFormat.getCurrencyInstance().format(cardUiModel.value),

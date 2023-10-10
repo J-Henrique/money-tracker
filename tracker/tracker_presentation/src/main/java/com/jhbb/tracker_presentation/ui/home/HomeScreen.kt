@@ -1,6 +1,8 @@
 package com.jhbb.tracker_presentation.ui.home
 
 import androidx.compose.animation.*
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
@@ -8,11 +10,13 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.jhbb.core_ui.ui.components.MoneyTrackerDropDownMenu
 import com.jhbb.core_ui.ui.components.category_card.CategoryUiType
@@ -20,8 +24,8 @@ import com.jhbb.core_ui.ui.components.expense_card.ExpenseCardUiModel
 import com.jhbb.core_ui.ui.components.expense_card.MoneyTrackerExpenseCard
 import com.jhbb.core_ui.ui.theme.MoneyTrackerTheme
 import com.jhbb.core_ui.utils.MultiThemePreview
-import java.time.LocalTime
 import kotlinx.coroutines.launch
+import java.time.LocalTime
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -50,40 +54,33 @@ internal fun HomeScreen(
                         selected = true,
                         icon = {
                             Icon(
-                                imageVector = Icons.Default.Home,
-                                contentDescription = null
+                                imageVector = Icons.Default.Home, contentDescription = null
                             )
                         },
-                        onClick = { /*TODO*/ }
+                        onClick = { /*TODO*/ },
                     )
                     BottomNavigationItem(
                         selected = true,
                         icon = {
                             Icon(
-                                imageVector = Icons.Default.Person,
-                                contentDescription = null
+                                imageVector = Icons.Default.Person, contentDescription = null
                             )
                         },
-                        onClick = { /*TODO*/ }
+                        onClick = { /*TODO*/ },
                     )
                 }
             }
         },
         floatingActionButton = {
             AnimatedVisibility(
-                visible = bottomSheetState.isVisible.not(),
-                enter = fadeIn(),
-                exit = fadeOut()
+                visible = bottomSheetState.isVisible.not(), enter = fadeIn(), exit = fadeOut()
             ) {
-                FloatingActionButton(
-                    onClick = { coroutineScope.launch { bottomSheetState.show() } }
-                ) {
+                FloatingActionButton(onClick = { coroutineScope.launch { bottomSheetState.show() } }) {
                     Icon(imageVector = Icons.Default.Add, contentDescription = null)
                 }
             }
         },
-        floatingActionButtonPosition = FabPosition.Center,
-        isFloatingActionButtonDocked = true
+        floatingActionButtonPosition = FabPosition.Center, isFloatingActionButtonDocked = true,
     ) { paddingValues ->
         Column(
             modifier = Modifier
@@ -92,10 +89,26 @@ internal fun HomeScreen(
                 .padding(16.dp),
             horizontalAlignment = Alignment.Start
         ) {
-            MoneyTrackerDropDownMenu(
-                defaultText = "Mês",
-                items = state.getMonths()
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
+
+            ) {
+                MoneyTrackerDropDownMenu(
+                    defaultText = "Mês", items = state.getMonths()
+                )
+                IconButton(
+                    onClick = { coroutineScope.launch { bottomSheetState.show() } },
+                    modifier = Modifier
+                        .clip(shape = MaterialTheme.shapes.small)
+                        .border(
+                            border = BorderStroke(
+                                width = 1.dp, color = MaterialTheme.colors.primary
+                            ), shape = MaterialTheme.shapes.small
+                        )
+                ) {
+                    Icon(imageVector = Icons.Default.Menu, contentDescription = null)
+                }
+            }
             LazyColumn(
                 contentPadding = PaddingValues(vertical = 16.dp),
             ) {
@@ -104,22 +117,18 @@ internal fun HomeScreen(
                 }
             }
         }
-        ModalBottomSheetLayout(
-            sheetState = bottomSheetState,
-            sheetContent = {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                ) {
-                    Button(
-                        onClick = { coroutineScope.launch { bottomSheetState.hide() } }
-                    ) {
-                        Text(text = "Hide Sheet")
-                    }
+        ModalBottomSheetLayout(sheetState = bottomSheetState, sheetContent = {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+            ) {
+                Button(onClick = { coroutineScope.launch { bottomSheetState.hide() } }) {
+                    // TODO: modal body
+                    Text(text = "Hide Sheet")
                 }
             }
-        ) {}
+        }) {}
     }
 }
 
@@ -135,15 +144,13 @@ fun PreviewHomeScreen() {
                     value = 145.31,
                     time = LocalTime.now(),
                     categoryType = CategoryUiType.EDUCATION
-                ),
-                ExpenseCardUiModel(
+                ), ExpenseCardUiModel(
                     title = "Titulo",
                     description = "Descrição",
                     value = 145.31,
                     time = LocalTime.now(),
                     categoryType = CategoryUiType.BAR
-                ),
-                ExpenseCardUiModel(
+                ), ExpenseCardUiModel(
                     title = "Titulo",
                     description = "Descrição",
                     value = 145.31,
