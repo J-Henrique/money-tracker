@@ -39,6 +39,7 @@ fun MoneyTrackerExpenseCard(
     cardUiModel: ExpenseCardUiModel, cardHeight: Dp = Dp.Unspecified
 ) {
     Surface(
+        color = MaterialTheme.colors.surface.copy(alpha = 0.2f),
         modifier = Modifier
             .padding(2.dp)
             .clip(shape = MaterialTheme.shapes.small)
@@ -48,7 +49,7 @@ fun MoneyTrackerExpenseCard(
             modifier = Modifier
                 .heightIn(min = 90.dp, max = 96.dp)
                 .height(cardHeight)
-                .padding(10.dp)
+                .padding(14.dp)
                 .fillMaxWidth()
         ) {
             Icon(
@@ -58,7 +59,7 @@ fun MoneyTrackerExpenseCard(
                 modifier = Modifier
                     .aspectRatio(1f)
                     .background(
-                        color = MaterialTheme.colors.onSurface.copy(alpha = 0.8f),
+                        color = cardUiModel.categoryType.tint.copy(alpha = 0.1f),
                         shape = RoundedCornerShape(16.dp)
                     )
                     .padding(10.dp)
