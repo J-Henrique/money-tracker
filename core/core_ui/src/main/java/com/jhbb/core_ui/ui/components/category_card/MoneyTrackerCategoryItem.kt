@@ -46,10 +46,13 @@ fun MoneyTrackerCategoryItem(
         modifier = Modifier
             .fillMaxSize()
             .wrapContentHeight()
-            .clickable { onClick(category) }
             .shadow(6.dp, MaterialTheme.shapes.small.copy(CornerSize(transition.cornerSize)))
             .clip(MaterialTheme.shapes.small.copy(CornerSize(transition.cornerSize)))
-            .background(transition.background)
+            .background(
+                color = transition.background,
+                shape = MaterialTheme.shapes.small.copy(CornerSize(transition.cornerSize))
+            )
+            .clickable { onClick(category) }
     ) {
         Row(
             modifier = Modifier
