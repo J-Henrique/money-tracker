@@ -24,13 +24,14 @@ import com.jhbb.core_ui.ui.components.expense_card.ExpenseCardUiModel
 import com.jhbb.core_ui.ui.components.expense_card.MoneyTrackerExpenseCard
 import com.jhbb.core_ui.ui.theme.MoneyTrackerTheme
 import com.jhbb.core_ui.utils.MultiThemePreview
-import java.time.LocalTime
 import kotlinx.coroutines.launch
+import java.time.LocalTime
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 internal fun HomeScreen(
-    state: HomeScreenState
+    state: HomeScreenState,
+    actions: HomeScreenActions,
 ) {
     val coroutineScope = rememberCoroutineScope()
     val bottomSheetState = rememberModalBottomSheetState(
@@ -75,7 +76,7 @@ internal fun HomeScreen(
             AnimatedVisibility(
                 visible = bottomSheetState.isVisible.not(), enter = fadeIn(), exit = fadeOut()
             ) {
-                FloatingActionButton(onClick = { coroutineScope.launch { bottomSheetState.show() } }) {
+                FloatingActionButton(onClick = { actions.onRegister() }) {
                     Icon(imageVector = Icons.Default.Add, contentDescription = null)
                 }
             }
@@ -161,6 +162,6 @@ fun PreviewHomeScreen() {
                 )
             )
         )
-        HomeScreen(state)
+        HomeScreen(state, HomeScreenActions {  })
     }
 }

@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
                             popUpTo(OnboardingDestinations.SPLASH_ROUTE) { inclusive = true }
                         }
                     }
-                    trackerGraph()
+                    trackerGraph(navController)
                 }
             }
         }
