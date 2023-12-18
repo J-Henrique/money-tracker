@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="tracker_register">Registrar</string>
+    <string name="tracker_register_value_field">Quanto?</string>
+    <string name="tracker_register_value_title">Título</string>
+    <string name="tracker_register_value_description">Descrição</string>
+    <string name="tracker_register_label_category">Categorias</string>
 </resources>

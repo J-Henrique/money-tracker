@@ -8,6 +8,7 @@ import com.jhbb.tracker_presentation.ui.home.HomeScreen
 import com.jhbb.tracker_presentation.ui.home.HomeScreenActions
 import com.jhbb.tracker_presentation.ui.home.HomeScreenViewModel
 import com.jhbb.tracker_presentation.ui.register.RegisterScreen
+ import com.jhbb.tracker_presentation.ui.register.RegisterScreenViewModel
 
 fun NavGraphBuilder.trackerGraph(
     navController: NavController
@@ -23,6 +24,10 @@ fun NavGraphBuilder.trackerGraph(
         )
     }
     composable(route = TrackerDestinations.REGISTER_ROUTE) {
-        RegisterScreen()
+        val viewModel = hiltViewModel<RegisterScreenViewModel>()
+        RegisterScreen(
+            state = viewModel.state,
+            onEvent = viewModel::onEvent
+        )
     }
 }

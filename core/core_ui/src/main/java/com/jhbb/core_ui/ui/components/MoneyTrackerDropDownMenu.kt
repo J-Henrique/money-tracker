@@ -7,7 +7,6 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
@@ -37,11 +36,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.jhbb.core_ui.ui.theme.MoneyTrackerTheme
 import com.jhbb.core_ui.utils.MultiThemePreview
+import com.jhbb.core_ui.utils.extensions.noRippleClickable
 
 @Composable
 fun MoneyTrackerDropDownMenu(
     defaultText: String,
-    items: List<String>
+    items: List<String>,
+    modifier: Modifier = Modifier
 ) {
     var isExpanded by remember { mutableStateOf(false) }
     var selectedItem by remember { mutableStateOf(defaultText) }
@@ -52,11 +53,22 @@ fun MoneyTrackerDropDownMenu(
         Icons.Default.KeyboardArrowDown
     }
 
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.defaultMinSize(minHeight = 48.dp)
+    Surface(
+        modifier = modifier
+            .clip(shape = MaterialTheme.shapes.small)
+            .border(
+                border = BorderStroke(
+                    width = 1.dp,
+                    color = MaterialTheme.colors.primary
+                ),
+                shape = MaterialTheme.shapes.small
+            )
+            .defaultMinSize(minHeight = 48.dp)
+            .animateContentSize()
     ) {
-        Surface(
+        Row(
+            horizontalArrangement = Arrangement.Start,
+            verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .clip(shape = MaterialTheme.shapes.small)
                 .border(
@@ -66,67 +78,54 @@ fun MoneyTrackerDropDownMenu(
                     ),
                     shape = MaterialTheme.shapes.small
                 )
-                .animateContentSize()
+                .wrapContentWidth()
+                .noRippleClickable {
+                    isExpanded = true
+                }
+                .padding(8.dp)
         ) {
-            Row(
-                horizontalArrangement = Arrangement.Start,
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .clip(shape = MaterialTheme.shapes.small)
-                    .border(
-                        border = BorderStroke(
-                            width = 1.dp,
-                            color = MaterialTheme.colors.primary
-                        ),
-                        shape = MaterialTheme.shapes.small
-                    )
-                    .wrapContentWidth()
-                    .clickable { isExpanded = true }
-                    .padding(8.dp)
+            Icon(
+                imageVector = arrowIcon,
+                contentDescription = null,
+                tint = MaterialTheme.colors.secondaryVariant
+            )
+            Text(
+                text = selectedItem,
+                color = MaterialTheme.colors.onPrimary,
+                fontWeight = FontWeight.Bold
+            )
+            DropdownMenu(
+                expanded = isExpanded,
+                onDismissRequest = { isExpanded = false },
             ) {
-                Icon(
-                    imageVector = arrowIcon,
-                    contentDescription = null,
-                    tint = MaterialTheme.colors.secondaryVariant
-                )
-                Text(
-                    text = selectedItem,
-                    color = MaterialTheme.colors.onPrimary,
-                    fontWeight = FontWeight.Bold
-                )
-                DropdownMenu(
-                    expanded = isExpanded,
-                    onDismissRequest = { isExpanded = false },
-                ) {
-                    items.forEach { item ->
-                        DropdownMenuItem(
-                            onClick = {
-                                selectedItem = item
-                                isExpanded = false
-                            }
-                        ) {
-                            Text(text = item)
+                items.forEach { item ->
+                    DropdownMenuItem(
+                        onClick = {
+                            selectedItem = item
+                            isExpanded = false
                         }
+                    ) {
+                        Text(text = item)
                     }
                 }
             }
         }
-        AnimatedVisibility(
-            visible = selectedItem != defaultText,
-            enter = fadeIn(),
-            exit = fadeOut()
-        ) {
-            IconButton(onClick = { selectedItem = defaultText }) {
-                Icon(
-                    imageVector = Icons.Default.Close,
-                    contentDescription = null,
-                    tint = MaterialTheme.colors.onSecondary,
-                    modifier = Modifier.background(
-                        color = MaterialTheme.colors.secondary,
-                        shape = CircleShape
-                    )
+    }
+    AnimatedVisibility(
+        visible = selectedItem != defaultText,
+        enter = fadeIn(),
+        exit = fadeOut()
+    ) {
+        IconButton(onClick = { selectedItem = defaultText }) {
+            Icon(
+                imageVector = Icons.Default.Close,
+                contentDescription = null,
+                tint = MaterialTheme.colors.onSecondary,
+                modifier = Modifier.background(
+                    color = MaterialTheme.colors.secondary,
+                    shape = CircleShape
                 )
-            }
+            )
         }
     }
 }
