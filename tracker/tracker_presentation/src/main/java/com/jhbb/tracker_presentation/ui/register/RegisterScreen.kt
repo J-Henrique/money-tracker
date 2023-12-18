@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -32,7 +33,7 @@ fun RegisterScreen() {
         Column(
             modifier = Modifier
                 .padding(it)
-                .background(Color.Red),
+                .background(MaterialTheme.colors.primaryVariant),
         ) {
             Row(
                 modifier = Modifier
