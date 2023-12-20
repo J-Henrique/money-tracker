@@ -37,6 +37,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.jhbb.core_ui.ui.components.MoneyTrackerDropDownMenu
+import com.jhbb.core_ui.ui.components.MoneyTrackerSwitcher
 import com.jhbb.core_ui.ui.components.MoneyTrackerTopBar
 import com.jhbb.core_ui.ui.theme.MoneyTrackerTheme
 import com.jhbb.core_ui.utils.MultiThemePreview
@@ -70,9 +71,12 @@ fun RegisterScreen(
                     .fillMaxSize()
                     .padding(16.dp)
                     .weight(1f),
-                verticalAlignment = Alignment.Bottom
             ) {
-                ValueSection(state.value, onEvent)
+                ValueSection(
+                    isExpense = state.isIncome,
+                    value = state.value,
+                    onEvent = onEvent,
+                )
             }
             Row(
                 modifier = Modifier
@@ -97,40 +101,56 @@ fun RegisterScreen(
 }
 
 @Composable
-private fun ValueSection(value: String, onEvent: (RegisterScreenEvent) -> Unit) {
+private fun ValueSection(
+    isExpense: Boolean,
+    value: String,
+    onEvent: (RegisterScreenEvent) -> Unit
+) {
     val focusRequester = remember { FocusRequester() }
     LaunchedEffect(key1 = true) {
         focusRequester.requestFocus()
     }
-    Column {
-        Text(
-            text = stringResource(id = R.string.tracker_register_value_field),
-            modifier = Modifier.alpha(0.7f),
-            fontWeight = FontWeight.Bold
+
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        MoneyTrackerSwitcher(
+            isActive = isExpense,
+            onToggle = { onEvent(RegisterScreenEvent.OnToggleSwitcher(isExpense)) },
         )
-        Spacer(modifier = Modifier.height(8.dp))
-        BasicTextField(
-            value = value,
-            onValueChange = {
-                if (it.length <= Long.MAX_VALUE.toString().length) {
-                    onEvent(RegisterScreenEvent.OnEnterValue(value = it))
-                }
-            },
-            textStyle = MaterialTheme.typography.h1.copy(
-                color = MaterialTheme.colors.onBackground,
+        Column(
+            verticalArrangement = Arrangement.Bottom,
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Text(
+                text = stringResource(id = R.string.tracker_register_value_field),
+                modifier = Modifier.alpha(0.7f),
                 fontWeight = FontWeight.Bold
-            ),
-            cursorBrush = SolidColor(MaterialTheme.colors.onBackground),
-            singleLine = true,
-            keyboardOptions = KeyboardOptions(
-                capitalization = KeyboardCapitalization.Words,
-                autoCorrect = false,
-                keyboardType = KeyboardType.NumberPassword,
-                imeAction = ImeAction.Done
-            ),
-            modifier = Modifier.focusRequester(focusRequester),
-            visualTransformation = NumberCommaTransformation(),
-        )
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            BasicTextField(
+                value = value,
+                onValueChange = {
+                    if (it.length <= Long.MAX_VALUE.toString().length) {
+                        onEvent(RegisterScreenEvent.OnEnterValue(value = it))
+                    }
+                },
+                textStyle = MaterialTheme.typography.h1.copy(
+                    color = MaterialTheme.colors.onBackground,
+                    fontWeight = FontWeight.Bold
+                ),
+                cursorBrush = SolidColor(MaterialTheme.colors.onBackground),
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(
+                    capitalization = KeyboardCapitalization.Words,
+                    autoCorrect = false,
+                    keyboardType = KeyboardType.NumberPassword,
+                    imeAction = ImeAction.Done
+                ),
+                modifier = Modifier.focusRequester(focusRequester),
+                visualTransformation = NumberCommaTransformation(),
+            )
+        }
     }
 }
 
@@ -179,7 +199,7 @@ private fun DetailsSection(
 @MultiThemePreview
 @Composable
 fun PreviewRegisterScreen() {
-    val state = RegisterScreenState("")
+    val state = RegisterScreenState()
     MoneyTrackerTheme {
         RegisterScreen(
             state = state,

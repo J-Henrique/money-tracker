@@ -15,6 +15,7 @@ class RegisterScreenViewModel @Inject constructor() : ViewModel() {
 
     fun onEvent(event: RegisterScreenEvent) {
         state = when (event) {
+            is RegisterScreenEvent.OnToggleSwitcher -> state.copy(isIncome = !event.isActive)
             is RegisterScreenEvent.OnEnterValue -> state.copy(value = event.value)
             is RegisterScreenEvent.OnEnterTitle -> state.copy(title = event.title)
             is RegisterScreenEvent.OnEnterDescription -> {
