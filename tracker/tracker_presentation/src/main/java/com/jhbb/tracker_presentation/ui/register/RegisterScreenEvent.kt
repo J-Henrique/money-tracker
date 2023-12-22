@@ -5,4 +5,6 @@ sealed interface RegisterScreenEvent {
     data class OnEnterValue(val value: String): RegisterScreenEvent
     data class OnEnterTitle(val title: String): RegisterScreenEvent
     data class OnEnterDescription(val description: String): RegisterScreenEvent
+    data class OnSelectCategory(val categoryDescription: String): RegisterScreenEvent
+    object OnRegister: RegisterScreenEvent
 }

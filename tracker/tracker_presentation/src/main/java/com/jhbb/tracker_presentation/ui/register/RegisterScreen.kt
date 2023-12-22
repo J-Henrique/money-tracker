@@ -39,6 +39,8 @@ import androidx.compose.ui.unit.dp
 import com.jhbb.core_ui.ui.components.MoneyTrackerDropDownMenu
 import com.jhbb.core_ui.ui.components.MoneyTrackerSwitcher
 import com.jhbb.core_ui.ui.components.MoneyTrackerTopBar
+import com.jhbb.core_ui.ui.components.category_card.CategoryUiModel
+import com.jhbb.core_ui.ui.components.category_card.CategoryUiType
 import com.jhbb.core_ui.ui.theme.MoneyTrackerTheme
 import com.jhbb.core_ui.utils.MultiThemePreview
 import com.jhbb.core_ui.utils.NumberCommaTransformation
@@ -56,7 +58,7 @@ fun RegisterScreen(
             )
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = { }) {
+            FloatingActionButton(onClick = { onEvent(RegisterScreenEvent.OnRegister) }) {
                 Icon(imageVector = Icons.Default.Check, contentDescription = null)
             }
         }
@@ -93,6 +95,7 @@ fun RegisterScreen(
                 DetailsSection(
                     title = state.title,
                     description = state.description,
+                    categories = state.categories,
                     onEvent = onEvent
                 )
             }
@@ -158,6 +161,7 @@ private fun ValueSection(
 private fun DetailsSection(
     title: String,
     description: String,
+    categories: List<CategoryUiModel>,
     onEvent: (RegisterScreenEvent) -> Unit
 ) {
     Column(
@@ -189,10 +193,14 @@ private fun DetailsSection(
         Spacer(modifier = Modifier.height(16.dp))
         MoneyTrackerDropDownMenu(
             defaultText = stringResource(id = R.string.tracker_register_label_category),
-            items = listOf(),
+            items = if (categories.isNotEmpty()) {
+                categories.map { CategoryUiType.valueOf(it.type.name).description }
+            } else emptyList(),
+            onItemSelected = {
+                onEvent(RegisterScreenEvent.OnSelectCategory(it))
+            },
             modifier = Modifier.fillMaxWidth()
         )
-
     }
 }
 

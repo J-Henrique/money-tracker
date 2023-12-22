@@ -95,7 +95,7 @@ internal fun HomeScreen(
 
             ) {
                 MoneyTrackerDropDownMenu(
-                    defaultText = "Mês", items = state.getMonths()
+                    defaultText = "Mês", items = state.getMonths(), onItemSelected = {}
                 )
                 IconButton(
                     onClick = { coroutineScope.launch { bottomSheetState.show() } },

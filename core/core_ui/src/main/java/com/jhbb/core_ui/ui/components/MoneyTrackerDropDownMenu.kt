@@ -7,6 +7,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
@@ -42,6 +43,7 @@ import com.jhbb.core_ui.utils.extensions.noRippleClickable
 fun MoneyTrackerDropDownMenu(
     defaultText: String,
     items: List<String>,
+    onItemSelected: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var isExpanded by remember { mutableStateOf(false) }
@@ -53,23 +55,13 @@ fun MoneyTrackerDropDownMenu(
         Icons.Default.KeyboardArrowDown
     }
 
-    Surface(
-        modifier = modifier
-            .clip(shape = MaterialTheme.shapes.small)
-            .border(
-                border = BorderStroke(
-                    width = 1.dp,
-                    color = MaterialTheme.colors.primary
-                ),
-                shape = MaterialTheme.shapes.small
-            )
-            .defaultMinSize(minHeight = 48.dp)
-            .animateContentSize()
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Start,
+        modifier = Modifier.defaultMinSize(minHeight = 48.dp)
     ) {
-        Row(
-            horizontalArrangement = Arrangement.Start,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
+        Surface(
+            modifier = modifier
                 .clip(shape = MaterialTheme.shapes.small)
                 .border(
                     border = BorderStroke(
@@ -78,54 +70,71 @@ fun MoneyTrackerDropDownMenu(
                     ),
                     shape = MaterialTheme.shapes.small
                 )
-                .wrapContentWidth()
-                .noRippleClickable {
-                    isExpanded = true
-                }
-                .padding(8.dp)
+                .defaultMinSize(minHeight = 48.dp)
+                .animateContentSize()
         ) {
-            Icon(
-                imageVector = arrowIcon,
-                contentDescription = null,
-                tint = MaterialTheme.colors.secondaryVariant
-            )
-            Text(
-                text = selectedItem,
-                color = MaterialTheme.colors.onPrimary,
-                fontWeight = FontWeight.Bold
-            )
-            DropdownMenu(
-                expanded = isExpanded,
-                onDismissRequest = { isExpanded = false },
+            Row(
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .clip(shape = MaterialTheme.shapes.small)
+                    .border(
+                        border = BorderStroke(
+                            width = 1.dp,
+                            color = MaterialTheme.colors.primary
+                        ),
+                        shape = MaterialTheme.shapes.small
+                    )
+                    .wrapContentWidth()
+                    .noRippleClickable {
+                        isExpanded = true
+                    }
+                    .padding(8.dp)
             ) {
-                items.forEach { item ->
-                    DropdownMenuItem(
-                        onClick = {
-                            selectedItem = item
-                            isExpanded = false
+                Icon(
+                    imageVector = arrowIcon,
+                    contentDescription = null,
+                    tint = MaterialTheme.colors.secondaryVariant
+                )
+                Text(
+                    text = selectedItem,
+                    color = MaterialTheme.colors.onPrimary,
+                    fontWeight = FontWeight.Bold
+                )
+                DropdownMenu(
+                    expanded = isExpanded,
+                    onDismissRequest = { isExpanded = false },
+                ) {
+                    items.forEach { item ->
+                        DropdownMenuItem(
+                            onClick = {
+                                selectedItem = item
+                                onItemSelected(selectedItem)
+                                isExpanded = false
+                            }
+                        ) {
+                            Text(text = item)
                         }
-                    ) {
-                        Text(text = item)
                     }
                 }
             }
         }
-    }
-    AnimatedVisibility(
-        visible = selectedItem != defaultText,
-        enter = fadeIn(),
-        exit = fadeOut()
-    ) {
-        IconButton(onClick = { selectedItem = defaultText }) {
-            Icon(
-                imageVector = Icons.Default.Close,
-                contentDescription = null,
-                tint = MaterialTheme.colors.onSecondary,
-                modifier = Modifier.background(
-                    color = MaterialTheme.colors.secondary,
-                    shape = CircleShape
+        AnimatedVisibility(
+            visible = selectedItem != defaultText,
+            enter = fadeIn(),
+            exit = fadeOut()
+        ) {
+            IconButton(onClick = { selectedItem = defaultText }) {
+                Icon(
+                    imageVector = Icons.Default.Close,
+                    contentDescription = null,
+                    tint = MaterialTheme.colors.onSecondary,
+                    modifier = Modifier.background(
+                        color = MaterialTheme.colors.secondary,
+                        shape = CircleShape
+                    )
                 )
-            )
+            }
         }
     }
 }
@@ -142,7 +151,8 @@ fun PreviewMoneyTrackerDropDownMenu() {
                 "Item 3",
                 "Item 4",
                 "Item 5"
-            )
+            ),
+            onItemSelected = {}
         )
     }
 }
