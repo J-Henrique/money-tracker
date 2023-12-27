@@ -8,5 +8,6 @@ data class RegisterScreenState(
     val title: String = "",
     val description: String = "",
     val categories: List<CategoryUiModel> = emptyList(),
-    val selectedCategory: CategoryUiModel? = null
+    val selectedCategory: CategoryUiModel? = null,
+    val hasError: Boolean = false,
 )

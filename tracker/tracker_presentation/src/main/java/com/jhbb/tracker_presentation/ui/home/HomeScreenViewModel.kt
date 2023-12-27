@@ -4,44 +4,31 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.jhbb.core_ui.ui.components.category_card.CategoryUiType
-import com.jhbb.core_ui.ui.components.expense_card.ExpenseCardUiModel
+import androidx.lifecycle.viewModelScope
+import com.jhbb.core_domain.repository.RegisterRepository
+import com.jhbb.core_ui.ui.components.expense_card.toUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.time.LocalTime
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeScreenViewModel @Inject constructor() : ViewModel() {
+class HomeScreenViewModel @Inject constructor(
+    private val registerRepository: RegisterRepository
+) : ViewModel() {
 
     var state by mutableStateOf(HomeScreenState())
         private set
-    val list = listOf(
-        ExpenseCardUiModel(
-            title = "Titulo",
-            description = "Descrição",
-            value = 145.31,
-            time = LocalTime.now(),
-            categoryType = CategoryUiType.EDUCATION,
-            isExpense = true
-        ), ExpenseCardUiModel(
-            title = "Titulo",
-            description = "Descrição",
-            value = 145.31,
-            time = LocalTime.now(),
-            categoryType = CategoryUiType.SPORTS,
-            isExpense = false
-        ), ExpenseCardUiModel(
-            title = "Titulo",
-            description = "Descrição",
-            value = 145.31,
-            time = LocalTime.now(),
-            categoryType = CategoryUiType.TRAVEL,
-            isExpense = true
-        )
-    )
-
 
     init {
-        state = state.copy(expenses = list)
+        viewModelScope.launch {
+            registerRepository.getRegisters()
+                .map { registers ->
+                    registers.map { it.toUiModel() }
+                }
+                .collect {
+                    state = state.copy(expenses = it)
+                }
+        }
     }
 }

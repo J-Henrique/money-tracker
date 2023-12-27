@@ -25,7 +25,7 @@ import com.jhbb.core_ui.ui.components.expense_card.MoneyTrackerExpenseCard
 import com.jhbb.core_ui.ui.theme.MoneyTrackerTheme
 import com.jhbb.core_ui.utils.MultiThemePreview
 import kotlinx.coroutines.launch
-import java.time.LocalTime
+import java.util.Date
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -142,23 +142,23 @@ fun PreviewHomeScreen() {
                     title = "Titulo",
                     description = "Descrição",
                     value = 145.31,
-                    time = LocalTime.now(),
+                    time = Date(),
                     categoryType = CategoryUiType.EDUCATION,
-                    isExpense = true
+                    isIncome = true
                 ), ExpenseCardUiModel(
                     title = "Titulo",
                     description = "Descrição",
                     value = 145.31,
-                    time = LocalTime.now(),
+                    time = Date(),
                     categoryType = CategoryUiType.BAR,
-                    isExpense = false
+                    isIncome = false
                 ), ExpenseCardUiModel(
                     title = "Titulo",
                     description = "Descrição",
                     value = 145.31,
-                    time = LocalTime.now(),
+                    time = Date(),
                     categoryType = CategoryUiType.HEALTH,
-                    isExpense = true
+                    isIncome = true
                 )
             )
         )

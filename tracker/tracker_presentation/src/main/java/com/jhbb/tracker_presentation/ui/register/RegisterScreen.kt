@@ -1,5 +1,6 @@
 package com.jhbb.tracker_presentation.ui.register
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -30,6 +31,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -43,14 +45,26 @@ import com.jhbb.core_ui.ui.components.category_card.CategoryUiModel
 import com.jhbb.core_ui.ui.components.category_card.CategoryUiType
 import com.jhbb.core_ui.ui.theme.MoneyTrackerTheme
 import com.jhbb.core_ui.utils.MultiThemePreview
-import com.jhbb.core_ui.utils.NumberCommaTransformation
+import com.jhbb.core_ui.utils.UiEvent
 import com.jhbb.tracker_presentation.R
+import kotlinx.coroutines.flow.MutableSharedFlow
 
 @Composable
 fun RegisterScreen(
     state: RegisterScreenState,
-    onEvent: (RegisterScreenEvent) -> Unit
+    actions: RegisterScreenActions,
 ) {
+    val context = LocalContext.current
+
+    LaunchedEffect(key1 = true) {
+        actions.uiEvent.collect { event ->
+            when (event) {
+                UiEvent.NavigateForward -> actions.onComplete()
+                is UiEvent.ShowToast ->
+                    Toast.makeText(context, event.messageResId, Toast.LENGTH_LONG).show()
+            }
+        }
+    }
     Scaffold(
         topBar = {
             MoneyTrackerTopBar(
@@ -58,15 +72,16 @@ fun RegisterScreen(
             )
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = { onEvent(RegisterScreenEvent.OnRegister) }) {
+            FloatingActionButton(onClick = { actions.onEvent(RegisterScreenEvent.OnRegister) }) {
                 Icon(imageVector = Icons.Default.Check, contentDescription = null)
             }
         }
     ) {
         Column(
             modifier = Modifier
+                .fillMaxSize()
                 .padding(it)
-                .background(MaterialTheme.colors.primaryVariant),
+                .background(MaterialTheme.colors.primaryVariant)
         ) {
             Row(
                 modifier = Modifier
@@ -75,9 +90,9 @@ fun RegisterScreen(
                     .weight(1f),
             ) {
                 ValueSection(
-                    isExpense = state.isIncome,
+                    isIncome = state.isIncome,
                     value = state.value,
-                    onEvent = onEvent,
+                    onEvent = actions.onEvent,
                 )
             }
             Row(
@@ -96,7 +111,7 @@ fun RegisterScreen(
                     title = state.title,
                     description = state.description,
                     categories = state.categories,
-                    onEvent = onEvent
+                    onEvent = actions.onEvent
                 )
             }
         }
@@ -105,7 +120,7 @@ fun RegisterScreen(
 
 @Composable
 private fun ValueSection(
-    isExpense: Boolean,
+    isIncome: Boolean,
     value: String,
     onEvent: (RegisterScreenEvent) -> Unit
 ) {
@@ -118,8 +133,8 @@ private fun ValueSection(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         MoneyTrackerSwitcher(
-            isActive = isExpense,
-            onToggle = { onEvent(RegisterScreenEvent.OnToggleSwitcher(isExpense)) },
+            isActive = isIncome,
+            onToggle = { onEvent(RegisterScreenEvent.OnToggleSwitcher(isIncome)) },
         )
         Column(
             verticalArrangement = Arrangement.Bottom,
@@ -147,11 +162,10 @@ private fun ValueSection(
                 keyboardOptions = KeyboardOptions(
                     capitalization = KeyboardCapitalization.Words,
                     autoCorrect = false,
-                    keyboardType = KeyboardType.NumberPassword,
+                    keyboardType = KeyboardType.Decimal,
                     imeAction = ImeAction.Done
                 ),
                 modifier = Modifier.focusRequester(focusRequester),
-                visualTransformation = NumberCommaTransformation(),
             )
         }
     }
@@ -211,7 +225,11 @@ fun PreviewRegisterScreen() {
     MoneyTrackerTheme {
         RegisterScreen(
             state = state,
-            onEvent = {}
+            actions = RegisterScreenActions(
+                onComplete = {},
+                uiEvent = MutableSharedFlow(),
+                onEvent = {},
+            )
         )
     }
 }

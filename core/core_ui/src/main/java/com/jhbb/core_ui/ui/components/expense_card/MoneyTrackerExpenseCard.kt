@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,8 +32,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.jhbb.core_ui.ui.components.category_card.CategoryUiType
 import com.jhbb.core_ui.ui.theme.MoneyTrackerTheme
-import java.time.LocalTime
-import java.time.format.DateTimeFormatter
+import com.jhbb.core_ui.utils.extensions.toFormattedDate
+import java.util.Date
 
 @Composable
 fun MoneyTrackerExpenseCard(
@@ -91,11 +92,11 @@ fun MoneyTrackerExpenseCard(
                     text = cardUiModel.monetaryValue,
                     fontWeight = FontWeight.Bold,
                     style = MaterialTheme.typography.h6.copy(
-                        color = if (cardUiModel.isExpense) Color.Red else Color.Green
+                        color = if (cardUiModel.isIncome) Color.Green else Color.Red
                     )
                 )
                 Text(
-                    text = cardUiModel.time.format(DateTimeFormatter.ofPattern("HH:mm")),
+                    text = cardUiModel.time.toFormattedDate(LocalContext.current),
                     style = MaterialTheme.typography.subtitle1,
                 )
             }
@@ -112,9 +113,9 @@ fun PreviewMoneyTrackerExpenseCard() {
             title = "Titulo",
             description = "Descrição",
             value = 145.31,
-            time = LocalTime.now(),
+            time = Date(),
             categoryType = CategoryUiType.SPORTS,
-            isExpense = false
+            isIncome = false
         )
         Column {
             MoneyTrackerExpenseCard(cardHeight = 0.dp, cardUiModel = card)

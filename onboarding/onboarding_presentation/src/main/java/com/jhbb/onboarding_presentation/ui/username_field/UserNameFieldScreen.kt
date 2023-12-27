@@ -10,8 +10,6 @@ import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
@@ -46,6 +44,7 @@ internal fun UserNameFieldScreen(
         actions.uiEvent.collect {
             when (it) {
                 UiEvent.NavigateForward -> actions.onNext()
+                else -> Unit
             }
         }
     }
