@@ -6,4 +6,5 @@ import kotlinx.coroutines.flow.Flow
 interface RegisterRepository {
     fun getRegisters(): Flow<List<Register>>
     suspend fun insertRegister(register: Register): Result<Unit>
+    suspend fun updateRegister(register: Register): Result<Unit>
 }

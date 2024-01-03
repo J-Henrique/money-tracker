@@ -1,22 +1,28 @@
 package com.jhbb.tracker_domain.di
 
-import com.jhbb.core_domain.repository.RegisterRepository
 import com.jhbb.tracker_domain.use_case.insert_register.InsertRegisterUseCase
+import com.jhbb.tracker_domain.use_case.insert_register.InsertRegisterUseCaseImpl
+import com.jhbb.tracker_domain.use_case.synchronize_register.SynchronizeRegisterUseCase
+import com.jhbb.tracker_domain.use_case.synchronize_register.SynchronizeRegisterUseCaseImpl
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
 @InstallIn(ViewModelComponent::class)
-object TrackerDomainModule {
+abstract class TrackerDomainModule {
 
-    @Provides
+    @Binds
     @ViewModelScoped
-    fun provideInsertRegisterUseCase(
-        registerRepository: RegisterRepository
-    ): InsertRegisterUseCase {
-        return InsertRegisterUseCase(registerRepository)
-    }
+    abstract fun bindInsertRegisterUseCase(
+        insertRegisterUseCase: InsertRegisterUseCaseImpl
+    ): InsertRegisterUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindSynchronizeRegisterUseCase(
+        synchronizeRegisterUseCase: SynchronizeRegisterUseCaseImpl
+    ): SynchronizeRegisterUseCase
 }

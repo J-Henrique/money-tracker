@@ -43,13 +43,11 @@ object PersistenceModule {
     }
 
     @Provides
-    @Singleton
     fun provideCategoryDao(db: MoneyTrackerDatabase): CategoryDao {
         return db.categoryDao
     }
 
     @Provides
-    @Singleton
     fun provideRegisterDao(db: MoneyTrackerDatabase): RegisterDao {
         return db.registerDao
     }
@@ -63,13 +61,11 @@ internal abstract class PreferenceModule {
     abstract fun bindPreferences(pref: PreferencesImpl): Preferences
 
     @Binds
-    @Singleton
     abstract fun bindCategoryRepository(
         repository: CategoryRepositoryImpl
     ): CategoryRepository
 
     @Binds
-    @Singleton
     abstract fun bindRegisterRepository(
         repository: RegisterRepositoryImpl
     ): RegisterRepository

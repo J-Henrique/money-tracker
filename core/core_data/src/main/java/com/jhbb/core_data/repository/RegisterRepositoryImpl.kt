@@ -22,4 +22,8 @@ class RegisterRepositoryImpl @Inject constructor(
     override suspend fun insertRegister(register: Register): Result<Unit> {
         return Result.success(registerDao.insertRegister(register.toEntity()))
     }
+
+    override suspend fun updateRegister(register: Register): Result<Unit> {
+        return Result.success(registerDao.updateRegister(register.toEntity()))
+    }
 }

@@ -18,9 +18,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.jhbb.core_ui.ui.components.MoneyTrackerDropDownMenu
-import com.jhbb.core_ui.ui.components.category_card.CategoryUiType
-import com.jhbb.core_ui.ui.components.expense_card.ExpenseCardUiModel
+import com.jhbb.core_domain.model.CategoryType
+import com.jhbb.core_domain.model.Register
+import com.jhbb.core_domain.model.SynchronizationStatus
 import com.jhbb.core_ui.ui.components.expense_card.MoneyTrackerExpenseCard
 import com.jhbb.core_ui.ui.theme.MoneyTrackerTheme
 import com.jhbb.core_ui.utils.MultiThemePreview
@@ -58,16 +58,16 @@ internal fun HomeScreen(
                                 imageVector = Icons.Default.Home, contentDescription = null
                             )
                         },
-                        onClick = { /*TODO*/ },
+                        onClick = { },
                     )
                     BottomNavigationItem(
-                        selected = true,
+                        selected = false,
                         icon = {
                             Icon(
                                 imageVector = Icons.Default.Person, contentDescription = null
                             )
                         },
-                        onClick = { /*TODO*/ },
+                        onClick = { },
                     )
                 }
             }
@@ -94,9 +94,9 @@ internal fun HomeScreen(
                 modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
 
             ) {
-                MoneyTrackerDropDownMenu(
-                    defaultText = "Mês", items = state.getMonths(), onItemSelected = {}
-                )
+//                MoneyTrackerDropDownMenu(
+//                    defaultText = "Mês", items = state.getMonths(), onItemSelected = {}
+//                )
                 IconButton(
                     onClick = { coroutineScope.launch { bottomSheetState.show() } },
                     modifier = Modifier
@@ -113,8 +113,11 @@ internal fun HomeScreen(
             LazyColumn(
                 contentPadding = PaddingValues(vertical = 16.dp),
             ) {
-                items(state.expenses.size) {
-                    MoneyTrackerExpenseCard(state.expenses[it])
+                items(state.registers.size) {
+                    MoneyTrackerExpenseCard(
+                        register = state.registers[it],
+                        onRefresh = actions.onRefresh
+                    )
                 }
             }
         }
@@ -135,33 +138,39 @@ internal fun HomeScreen(
 @MultiThemePreview
 @Composable
 fun PreviewHomeScreen() {
-    MoneyTrackerTheme {
-        val state = HomeScreenState(
-            listOf(
-                ExpenseCardUiModel(
-                    title = "Titulo",
-                    description = "Descrição",
-                    value = 145.31,
-                    time = Date(),
-                    categoryType = CategoryUiType.EDUCATION,
-                    isIncome = true
-                ), ExpenseCardUiModel(
-                    title = "Titulo",
-                    description = "Descrição",
-                    value = 145.31,
-                    time = Date(),
-                    categoryType = CategoryUiType.BAR,
-                    isIncome = false
-                ), ExpenseCardUiModel(
-                    title = "Titulo",
-                    description = "Descrição",
-                    value = 145.31,
-                    time = Date(),
-                    categoryType = CategoryUiType.HEALTH,
-                    isIncome = true
-                )
-            )
+    val stubItems = listOf(
+        Register(
+            title = "Titulo",
+            description = "Descrição",
+            value = 145.31,
+            time = Date(),
+            categoryType = CategoryType.EDUCATION,
+            isIncome = true,
+            syncStatus = SynchronizationStatus.PENDING
+        ),
+        Register(
+            title = "Titulo",
+            description = "Descrição",
+            value = 145.31,
+            time = Date(),
+            categoryType = CategoryType.BAR,
+            isIncome = false,
+            syncStatus = SynchronizationStatus.SUCCESS
+        ),
+        Register(
+            title = "Titulo",
+            description = "Descrição",
+            value = 145.31,
+            time = Date(),
+            categoryType = CategoryType.HEALTH,
+            isIncome = true,
+            syncStatus = SynchronizationStatus.ERROR
         )
-        HomeScreen(state, HomeScreenActions {  })
+    )
+    val state = HomeScreenState().apply {
+        registers.addAll(stubItems)
+    }
+    MoneyTrackerTheme {
+        HomeScreen(state, HomeScreenActions({}, {}))
     }
 }

@@ -17,7 +17,8 @@ fun NavGraphBuilder.trackerGraph(
     composable(route = TrackerDestinations.HOME_TRACKER_ROUTE) {
         val viewModel = hiltViewModel<HomeScreenViewModel>()
         val actions = HomeScreenActions(
-            onRegister = { navController.navigate(TrackerDestinations.REGISTER_ROUTE) }
+            onRegister = { navController.navigate(TrackerDestinations.REGISTER_ROUTE) },
+            onRefresh = viewModel::refreshItem
         )
         HomeScreen(
             state = viewModel.state,

@@ -1,22 +1,18 @@
 package com.jhbb.tracker_presentation.ui.home
 
-import com.jhbb.core_ui.ui.components.expense_card.ExpenseCardUiModel
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.snapshots.SnapshotStateList
+import com.jhbb.core_domain.model.Register
+import com.jhbb.core_domain.model.SynchronizationStatus
 
 data class HomeScreenState(
-    val expenses: List<ExpenseCardUiModel> = emptyList()
+    val registers: SnapshotStateList<Register> = mutableStateListOf()
 )
 
-fun HomeScreenState.getMonths() = listOf(
-    "Janeiro",
-    "Fevereiro",
-    "Março",
-    "Abril",
-    "Maio",
-    "Junho",
-    "Julho",
-    "Agosto",
-    "Setembro",
-    "Outubro",
-    "Novembro",
-    "Dezembro",
-)
+fun HomeScreenState.updateSyncStatus(index: Int, status: SynchronizationStatus) {
+    registers[index] = registers[index].copy(syncStatus = status)
+}
+
+fun HomeScreenState.getPendingSyncItems(): List<Register> {
+    return registers.filter { it.syncStatus == SynchronizationStatus.PENDING }
+}

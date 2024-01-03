@@ -5,13 +5,14 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.jhbb.core_domain.model.CategoryType
 import com.jhbb.core_domain.model.Register
+import com.jhbb.core_domain.model.SynchronizationStatus
 import java.util.Date
 
 @Entity(tableName = "register")
 data class RegisterEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "register_id")
-    val id: Int?,
+    val id: Int? = null,
 
     @ColumnInfo("register_value")
     val value: Double,
@@ -30,6 +31,9 @@ data class RegisterEntity(
 
     @ColumnInfo("register_is_income")
     val isIncome: Boolean,
+
+    @ColumnInfo("register_synchronization_status")
+    val syncStatus: SynchronizationStatus,
 )
 
 fun RegisterEntity.toDomain() = Register(
@@ -39,7 +43,8 @@ fun RegisterEntity.toDomain() = Register(
     description = description,
     time = time,
     categoryType = category,
-    isIncome = isIncome
+    isIncome = isIncome,
+    syncStatus = syncStatus,
 )
 
 fun Register.toEntity() = RegisterEntity(
@@ -49,5 +54,6 @@ fun Register.toEntity() = RegisterEntity(
     description = description,
     time = time,
     category = categoryType,
-    isIncome = isIncome
+    isIncome = isIncome,
+    syncStatus = syncStatus,
 )

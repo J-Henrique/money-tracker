@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.jhbb.core_data.database.entity.RegisterEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -14,4 +15,7 @@ interface RegisterDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRegister(register: RegisterEntity)
+
+    @Update
+    suspend fun updateRegister(register: RegisterEntity)
 }

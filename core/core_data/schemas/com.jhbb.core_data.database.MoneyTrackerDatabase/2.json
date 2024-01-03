@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "f5159a082601d7c5faf836cfc1655623",
+    "identityHash": "9b34cbc7298352ee9a3e2239cd2c6a44",
     "entities": [
       {
         "tableName": "category",
@@ -38,7 +38,7 @@
       },
       {
         "tableName": "register",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`register_id` INTEGER PRIMARY KEY AUTOINCREMENT, `register_value` REAL NOT NULL, `register_title` TEXT NOT NULL, `register_description` TEXT NOT NULL, `register_date` INTEGER NOT NULL, `register_category_type` TEXT NOT NULL, `register_is_income` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`register_id` INTEGER PRIMARY KEY AUTOINCREMENT, `register_value` REAL NOT NULL, `register_title` TEXT NOT NULL, `register_description` TEXT NOT NULL, `register_date` INTEGER NOT NULL, `register_category_type` TEXT NOT NULL, `register_is_income` INTEGER NOT NULL, `register_synchronization_status` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -81,6 +81,12 @@
             "columnName": "register_is_income",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "syncStatus",
+            "columnName": "register_synchronization_status",
+            "affinity": "TEXT",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -96,7 +102,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f5159a082601d7c5faf836cfc1655623')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9b34cbc7298352ee9a3e2239cd2c6a44')"
     ]
   }
 }
