@@ -4,7 +4,7 @@
   "name": "Money Tracker",
   "endpointPrefix": "moneytracker",
   "latency": 0,
-  "port": 3001,
+  "port": 4001,
   "hostname": "",
   "folders": [],
   "routes": [
@@ -30,7 +30,7 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false,
+          "default": true,
           "crudKey": "id",
           "callbacks": []
         },
@@ -49,7 +49,7 @@
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": true,
+          "default": false,
           "crudKey": "id",
           "callbacks": []
         }

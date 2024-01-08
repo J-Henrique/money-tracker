@@ -9,8 +9,9 @@ data class HomeScreenState(
     val registers: SnapshotStateList<Register> = mutableStateListOf()
 )
 
-fun HomeScreenState.updateSyncStatus(index: Int, status: SynchronizationStatus) {
-    registers[index] = registers[index].copy(syncStatus = status)
+fun HomeScreenState.updateSyncStatus(item: Register, status: SynchronizationStatus) {
+    val indexToUpdate = registers.indexOfFirst { it.id == item.id }
+    registers[indexToUpdate] = registers[indexToUpdate].copy(syncStatus = status)
 }
 
 fun HomeScreenState.getPendingSyncItems(): List<Register> {

@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeScreenViewModel @Inject constructor(
-    private val registerRepository: RegisterRepository,
+    registerRepository: RegisterRepository,
     private val synchronizeRegisterUseCase: SynchronizeRegisterUseCase,
 ) : ViewModel() {
 
@@ -37,20 +37,16 @@ class HomeScreenViewModel @Inject constructor(
     private fun synchronize(registers: List<Register>) {
         synchronizeRegisterUseCase.invoke(registers).onEach { result ->
             result.onSuccess {
-                val successItemIndex = state.registers.indexOf(it)
-                state.updateSyncStatus(successItemIndex, SynchronizationStatus.SUCCESS)
-            }.onFailure {
-                val failureItemIndex = (it as SynchronizationException).item.run {
-                    state.registers.indexOf(this)
-                }
-                state.updateSyncStatus(failureItemIndex, SynchronizationStatus.ERROR)
+                state.updateSyncStatus(it, SynchronizationStatus.SUCCESS)
+            }.onFailure { error ->
+                val failureItem = (error as SynchronizationException).item
+                state.updateSyncStatus(failureItem, SynchronizationStatus.ERROR)
             }
         }.launchIn(viewModelScope)
     }
 
     fun refreshItem(item: Register) {
-        val indexToUpdate = state.registers.indexOf(item)
-        state.updateSyncStatus(indexToUpdate, SynchronizationStatus.PENDING)
+        state.updateSyncStatus(item, SynchronizationStatus.PENDING)
         synchronize(listOf(item))
     }
 }
