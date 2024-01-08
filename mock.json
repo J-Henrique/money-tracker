@@ -1,0 +1,99 @@
+{
+  "uuid": "7ad137c1-1cf8-43c7-9c62-ff776f3b6d4a",
+  "lastMigration": 32,
+  "name": "Money Tracker",
+  "endpointPrefix": "moneytracker",
+  "latency": 0,
+  "port": 3001,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "6ae4f19e-625f-49a0-8993-d0ff8411604e",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "register",
+      "responses": [
+        {
+          "uuid": "83a7d918-1c95-4a0b-bc4a-53e689e45d16",
+          "body": "{\n  \"title\": \"mock\"\n}",
+          "latency": 1500,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "3d74895c-fa9e-4c8d-89e0-1e5f30a6da3e",
+          "body": "",
+          "latency": 5000,
+          "statusCode": 400,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "6ae4f19e-625f-49a0-8993-d0ff8411604e"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": [],
+  "callbacks": []
+}

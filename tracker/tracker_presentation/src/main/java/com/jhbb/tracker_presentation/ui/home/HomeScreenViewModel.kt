@@ -7,13 +7,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jhbb.core_domain.model.Register
 import com.jhbb.core_domain.model.SynchronizationStatus
-import com.jhbb.core_domain.repository.RegisterRepository
+import com.jhbb.tracker_domain.repository.RegisterRepository
 import com.jhbb.tracker_domain.use_case.synchronize_register.SynchronizationException
 import com.jhbb.tracker_domain.use_case.synchronize_register.SynchronizeRegisterUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,20 +25,17 @@ class HomeScreenViewModel @Inject constructor(
         private set
 
     init {
-        viewModelScope.launch {
-            registerRepository.getRegisters()
-                .collect {
-                    state.registers.run {
-                        clear()
-                        addAll(it)
-                    }
-                    synchronize()
-                }
-        }
+        registerRepository.getRegisters().onEach {
+            state.registers.run {
+                clear()
+                addAll(it)
+            }
+            synchronize(state.getPendingSyncItems())
+        }.launchIn(viewModelScope)
     }
 
-    private fun synchronize() {
-        synchronizeRegisterUseCase.invoke(state.getPendingSyncItems()).onEach { result ->
+    private fun synchronize(registers: List<Register>) {
+        synchronizeRegisterUseCase.invoke(registers).onEach { result ->
             result.onSuccess {
                 val successItemIndex = state.registers.indexOf(it)
                 state.updateSyncStatus(successItemIndex, SynchronizationStatus.SUCCESS)
@@ -55,5 +51,6 @@ class HomeScreenViewModel @Inject constructor(
     fun refreshItem(item: Register) {
         val indexToUpdate = state.registers.indexOf(item)
         state.updateSyncStatus(indexToUpdate, SynchronizationStatus.PENDING)
+        synchronize(listOf(item))
     }
 }

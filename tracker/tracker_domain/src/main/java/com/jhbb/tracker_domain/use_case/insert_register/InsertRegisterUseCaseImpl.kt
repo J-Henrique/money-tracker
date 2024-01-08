@@ -3,7 +3,7 @@ package com.jhbb.tracker_domain.use_case.insert_register
 import com.jhbb.core_domain.model.CategoryType
 import com.jhbb.core_domain.model.Register
 import com.jhbb.core_domain.model.SynchronizationStatus
-import com.jhbb.core_domain.repository.RegisterRepository
+import com.jhbb.tracker_domain.repository.RegisterRepository
 import java.util.Date
 import javax.inject.Inject
 

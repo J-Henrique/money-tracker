@@ -9,10 +9,8 @@ import com.jhbb.core_data.database.dao.CategoryDao
 import com.jhbb.core_data.database.dao.RegisterDao
 import com.jhbb.core_data.preferences.PreferencesImpl
 import com.jhbb.core_data.repository.CategoryRepositoryImpl
-import com.jhbb.core_data.repository.RegisterRepositoryImpl
 import com.jhbb.core_domain.preferences.Preferences
 import com.jhbb.core_domain.repository.CategoryRepository
-import com.jhbb.core_domain.repository.RegisterRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -64,9 +62,4 @@ internal abstract class PreferenceModule {
     abstract fun bindCategoryRepository(
         repository: CategoryRepositoryImpl
     ): CategoryRepository
-
-    @Binds
-    abstract fun bindRegisterRepository(
-        repository: RegisterRepositoryImpl
-    ): RegisterRepository
 }
