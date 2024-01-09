@@ -19,12 +19,15 @@ hiltNavigationComposeVersion = "1.0.0"
 kotlinCompilerExtensionVersion = "1.4.7"
 kotlinGradlePluginVersion = "1.8.21"
 hiltAndroidGradlePluginVersion = "2.44.2"
-detektVersion = "1.23.1"
+detektPluginVersion = "1.23.1"
+junit5PluginVersion = "1.10.0.0"
 
 # Test
 junitVersion = "4.13.2"
+junit5Version = "5.10.0"
 coroutinesTestVersion = "1.6.4"
 androidXTestRunnerVersion = "1.5.2"
+mockkVersion = "1.13.9"
 
 [libraries]
 # Android
@@ -77,18 +80,25 @@ compose-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifes
 
 #JUnit
 junit-junit4 = { group = "junit", name = "junit", version.ref = "junitVersion" }
+junit-junit5-api = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junit5Version" }
+junit-junit5-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version.ref = "junit5Version" }
+
+#Mockk
+mockk-android = { group = "io.mockk", name = "mockk-android", version.ref = "mockkVersion" }
+mockk-agent = { group = "io.mockk", name = "mockk-agent", version.ref = "mockkVersion" }
 
 #AndroidX
 androidx-coreKtx = { group = "androidx.core", name = "core-ktx", version.ref = "androidXCoreKtxVersion" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidXAppCompatVersion" }
 
 #Detekt
-detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detektVersion" }
+detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detektPluginVersion" }
 
 [plugins]
-detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detektVersion" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detektPluginVersion" }
+junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "junit5PluginVersion" }
 
 [bundles]
 base = ["androidx.coreKtx", "androidx.appcompat"]
-test = ["junit.junit4", "kotlin.test.coroutines"]
+test = ["junit.junit5.api", "junit.junit5.engine", "kotlin.test.coroutines", "mockk.android", "mockk.agent"]
 compose = ["compose.ui", "compose.material", "compose.toolingPreview", "compose.activity", "compose.lifecycle.viewmodel", "compose.navigation", "compose.hilt.navigation", "compose.runtime"]
