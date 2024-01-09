@@ -13,9 +13,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -29,9 +27,7 @@ import com.jhbb.core_domain.model.CategoryType
 import com.jhbb.core_domain.model.Register
 import com.jhbb.core_domain.model.SynchronizationStatus
 import com.jhbb.core_ui.ui.components.category_card.CategoryUiModel
-import com.jhbb.core_ui.ui.components.category_card.CategoryUiType
 import com.jhbb.core_ui.ui.components.category_card.MoneyTrackerCategoryItem
-import com.jhbb.core_ui.ui.components.category_card.toDomain
 import com.jhbb.core_ui.ui.components.expense_card.MoneyTrackerExpenseCard
 import com.jhbb.core_ui.ui.theme.MoneyTrackerTheme
 import com.jhbb.core_ui.utils.MultiThemePreview
