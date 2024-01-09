@@ -18,10 +18,12 @@ fun NavGraphBuilder.trackerGraph(
         val viewModel = hiltViewModel<HomeScreenViewModel>()
         val actions = HomeScreenActions(
             onRegister = { navController.navigate(TrackerDestinations.REGISTER_ROUTE) },
-            onRefresh = viewModel::refreshItem
+            onRefresh = viewModel::refreshItem,
+            onEvent = viewModel::onEvent
         )
         HomeScreen(
             state = viewModel.state,
+            categoriesFilter = viewModel.categoriesFilter,
             actions = actions
         )
     }

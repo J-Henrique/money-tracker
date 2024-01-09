@@ -6,12 +6,16 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.jhbb.core_data.database.entity.RegisterEntity
+import com.jhbb.core_domain.model.CategoryType
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface RegisterDao {
     @Query("SELECT * FROM register")
-    fun selectRegister(): Flow<List<RegisterEntity>>
+    fun getAllRegisters(): Flow<List<RegisterEntity>>
+
+    @Query("SELECT * FROM register WHERE register_category_type IN (:filter)")
+    fun filterRegisterByCategory(filter: List<CategoryType>): Flow<List<RegisterEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRegister(register: RegisterEntity)

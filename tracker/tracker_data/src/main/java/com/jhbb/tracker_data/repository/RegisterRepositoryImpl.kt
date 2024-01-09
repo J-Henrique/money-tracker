@@ -3,6 +3,7 @@ package com.jhbb.tracker_data.repository
 import com.jhbb.core_data.database.dao.RegisterDao
 import com.jhbb.core_data.database.entity.toDomain
 import com.jhbb.core_data.database.entity.toEntity
+import com.jhbb.core_domain.model.CategoryType
 import com.jhbb.core_domain.model.Register
 import com.jhbb.core_domain.model.SynchronizationStatus
 import com.jhbb.tracker_data.remote.RegisterService
@@ -19,8 +20,14 @@ class RegisterRepositoryImpl @Inject constructor(
     private val registerService: RegisterService,
 ) : RegisterRepository {
 
-    override fun getRegisters(): Flow<List<Register>> {
-        return registerDao.selectRegister().map { registers ->
+    override fun getAllRegisters(): Flow<List<Register>> {
+        return registerDao.getAllRegisters().map { registers ->
+            registers.map { it.toDomain() }
+        }
+    }
+
+    override fun getRegistersByCategory(filter: List<CategoryType>): Flow<List<Register>> {
+        return registerDao.filterRegisterByCategory(filter).map { registers ->
             registers.map { it.toDomain() }
         }
     }

@@ -4,5 +4,6 @@ import com.jhbb.core_domain.model.Register
 
 data class HomeScreenActions(
     val onRegister: () -> Unit,
-    val onRefresh: (Register) -> Unit
+    val onRefresh: (Register) -> Unit,
+    val onEvent: (HomeScreenEvent) -> Unit
 )

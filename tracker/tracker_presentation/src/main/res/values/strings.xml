@@ -6,5 +6,6 @@
     <string name="tracker_register_value_description">Descrição</string>
     <string name="tracker_register_value_date">Data</string>
     <string name="tracker_register_label_category">Categorias</string>
+    <string name="tracker_register_filter_button">Filtrar</string>
     <string name="tracker_register_error_message">Preencha todos os campos</string>
 </resources>

@@ -2,28 +2,40 @@ package com.jhbb.tracker_presentation.ui.home
 
 import androidx.compose.animation.*
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.jhbb.core_domain.model.CategoryType
 import com.jhbb.core_domain.model.Register
 import com.jhbb.core_domain.model.SynchronizationStatus
+import com.jhbb.core_ui.ui.components.category_card.CategoryUiModel
+import com.jhbb.core_ui.ui.components.category_card.CategoryUiType
+import com.jhbb.core_ui.ui.components.category_card.MoneyTrackerCategoryItem
+import com.jhbb.core_ui.ui.components.category_card.toDomain
 import com.jhbb.core_ui.ui.components.expense_card.MoneyTrackerExpenseCard
 import com.jhbb.core_ui.ui.theme.MoneyTrackerTheme
 import com.jhbb.core_ui.utils.MultiThemePreview
+import com.jhbb.tracker_presentation.R
 import kotlinx.coroutines.launch
 import java.util.Date
 
@@ -31,6 +43,7 @@ import java.util.Date
 @Composable
 internal fun HomeScreen(
     state: HomeScreenState,
+    categoriesFilter: List<CategoryUiModel>,
     actions: HomeScreenActions,
 ) {
     val coroutineScope = rememberCoroutineScope()
@@ -91,12 +104,8 @@ internal fun HomeScreen(
             horizontalAlignment = Alignment.Start
         ) {
             Row(
-                modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
-
+                modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start
             ) {
-//                MoneyTrackerDropDownMenu(
-//                    defaultText = "Mês", items = state.getMonths(), onItemSelected = {}
-//                )
                 IconButton(
                     onClick = { coroutineScope.launch { bottomSheetState.show() } },
                     modifier = Modifier
@@ -107,7 +116,27 @@ internal fun HomeScreen(
                             ), shape = MaterialTheme.shapes.small
                         )
                 ) {
-                    Icon(imageVector = Icons.Default.Menu, contentDescription = null)
+                    Icon(
+                        painter = painterResource(id = com.jhbb.core_ui.R.drawable.ic_filter),
+                        contentDescription = null
+                    )
+                }
+                AnimatedVisibility(
+                    visible = categoriesFilter.any { it.isEnabled },
+                    enter = fadeIn(),
+                    exit = fadeOut()
+                ) {
+                    IconButton(onClick = { actions.onEvent(HomeScreenEvent.OnClearFilter) }) {
+                        Icon(
+                            imageVector = Icons.Default.Close,
+                            contentDescription = null,
+                            tint = MaterialTheme.colors.onSecondary,
+                            modifier = Modifier.background(
+                                color = MaterialTheme.colors.secondary,
+                                shape = CircleShape
+                            )
+                        )
+                    }
                 }
             }
             LazyColumn(
@@ -127,8 +156,32 @@ internal fun HomeScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
             ) {
-                Button(onClick = { coroutineScope.launch { bottomSheetState.hide() } }) {
-                    Text(text = "Hide Sheet")
+                LazyColumn(
+                    modifier = Modifier
+                        .padding(paddingValues)
+                        .fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(24.dp),
+                    contentPadding = PaddingValues(16.dp)
+                ) {
+                    items(categoriesFilter) { category ->
+                        MoneyTrackerCategoryItem(category) {
+                            actions.onEvent(HomeScreenEvent.OnSelectFilter(it))
+                        }
+                    }
+                    item {
+                        Button(onClick = {
+                            coroutineScope.launch {
+                                bottomSheetState.hide()
+                                actions.onEvent(HomeScreenEvent.OnFilter)
+                            }
+                        }) {
+                            Text(
+                                text = stringResource(id = R.string.tracker_register_filter_button),
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                    }
                 }
             }
         }) {}
@@ -171,6 +224,6 @@ fun PreviewHomeScreen() {
         registers.addAll(stubItems)
     }
     MoneyTrackerTheme {
-        HomeScreen(state, HomeScreenActions({}, {}))
+        HomeScreen(state, emptyList(), HomeScreenActions({}, {}, {}))
     }
 }
