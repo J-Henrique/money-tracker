@@ -10,6 +10,7 @@ import javax.inject.Inject
 class CategoryRepositoryImpl @Inject constructor(
     private val categoryDao: CategoryDao
 ) : CategoryRepository {
+
     override suspend fun getCategories(isEnabled: Boolean?): List<Category> {
         val categories = if (isEnabled == null) {
             categoryDao.selectCategory()
