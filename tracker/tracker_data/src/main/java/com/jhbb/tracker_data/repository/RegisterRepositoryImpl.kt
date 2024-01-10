@@ -9,6 +9,7 @@ import com.jhbb.core_domain.model.SynchronizationStatus
 import com.jhbb.tracker_data.remote.RegisterService
 import com.jhbb.tracker_data.remote.dto.toDto
 import com.jhbb.tracker_domain.repository.RegisterRepository
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -18,6 +19,7 @@ import javax.inject.Inject
 class RegisterRepositoryImpl @Inject constructor(
     private val registerDao: RegisterDao,
     private val registerService: RegisterService,
+    private val defaultDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : RegisterRepository {
 
     override fun getAllRegisters(): Flow<List<Register>> {
@@ -42,7 +44,7 @@ class RegisterRepositoryImpl @Inject constructor(
 
     override suspend fun synchronizeRegister(register: Register): Result<Unit> {
         try {
-            withContext(Dispatchers.IO) {
+            withContext(defaultDispatcher) {
                 registerService.postRegister(register.toDto())
             }
         } catch (ex: Exception) {
