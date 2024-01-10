@@ -17,7 +17,7 @@ class InsertRegisterUseCaseImpl @Inject constructor(
         description: String,
         categoryName: String?,
         isIncome: Boolean
-    ): Result<Unit> {
+    ): Result<Any> {
         val currentValue = try {
             value.toDouble()
         } catch (ex: Exception) {
@@ -37,9 +37,9 @@ class InsertRegisterUseCaseImpl @Inject constructor(
             syncStatus = SynchronizationStatus.PENDING
         )
         return registerRepository.insertRegister(register)
-            .onSuccess { Result.success(Unit) }
+            .onSuccess { return Result.success(Unit) }
             .onFailure {
-                Result.failure<InsertRegisterException>(InsertRegisterException.InsertionException)
+                return Result.failure<InsertRegisterException>(InsertRegisterException.InsertionException)
             }
     }
 }

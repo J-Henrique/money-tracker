@@ -7,5 +7,5 @@ interface InsertRegisterUseCase {
         description: String,
         categoryName: String?,
         isIncome: Boolean,
-    ): Result<Unit>
+    ): Result<Any>
 }

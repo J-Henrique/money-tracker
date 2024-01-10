@@ -1,5 +1,6 @@
 plugins {
     id("com.android.library")
+    alias(libs.plugins.junit5)
 }
 
 apply {
