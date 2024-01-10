@@ -28,6 +28,7 @@ junit5Version = "5.10.0"
 coroutinesTestVersion = "1.6.4"
 androidXTestRunnerVersion = "1.5.2"
 mockkVersion = "1.13.9"
+turbineVersion = "1.0.0"
 
 [libraries]
 # Android
@@ -87,6 +88,9 @@ junit-junit5-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engin
 mockk-android = { group = "io.mockk", name = "mockk-android", version.ref = "mockkVersion" }
 mockk-agent = { group = "io.mockk", name = "mockk-agent", version.ref = "mockkVersion" }
 
+#Turbine
+turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbineVersion" }
+
 #AndroidX
 androidx-coreKtx = { group = "androidx.core", name = "core-ktx", version.ref = "androidXCoreKtxVersion" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidXAppCompatVersion" }
@@ -100,5 +104,5 @@ junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "junit5PluginVer
 
 [bundles]
 base = ["androidx.coreKtx", "androidx.appcompat"]
-test = ["junit.junit5.api", "junit.junit5.engine", "kotlin.test.coroutines", "mockk.android", "mockk.agent"]
+test = ["junit.junit5.api", "junit.junit5.engine", "kotlin.test.coroutines", "mockk.android", "mockk.agent", "turbine"]
 compose = ["compose.ui", "compose.material", "compose.toolingPreview", "compose.activity", "compose.lifecycle.viewmodel", "compose.navigation", "compose.hilt.navigation", "compose.runtime"]
