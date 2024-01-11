@@ -16,4 +16,6 @@ dependencies {
     "implementation"(project(Modules.coreDomain))
     "implementation"(project(Modules.trackerDomain))
     "implementation"(project(Modules.trackerData))
+
+    "testImplementation"(project(Modules.coreTestHelper))
 }

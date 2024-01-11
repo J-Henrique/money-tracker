@@ -12,6 +12,7 @@ include ':core'
 include ':core:core_data'
 include ':core:core_domain'
 include ':core:core_ui'
+include ':core:test_helper'
 
 include ':onboarding'
 include ':onboarding:onboarding_domain'
