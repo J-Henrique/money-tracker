@@ -4,7 +4,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jhbb.core_domain.model.Register
@@ -84,13 +83,13 @@ class HomeScreenViewModel @Inject constructor(
             HomeScreenEvent.OnClearFilter -> {
                 val categories = categoriesFilter.filter { it.isEnabled }
                 categories.forEach {
-                    val index = categoriesFilter.indexOf(it)
+                    val index = categoriesFilter.indexOfFirst { cat -> cat.id == it.id }
                     categoriesFilter[index] = categoriesFilter[index].copy(isEnabled = false)
                 }
                 getAllRegisters()
             }
             is HomeScreenEvent.OnSelectFilter -> {
-                val categoryIndex = categoriesFilter.indexOf(event.category)
+                val categoryIndex = categoriesFilter.indexOfFirst { it.id == event.category.id }
                 categoriesFilter[categoryIndex] =
                     categoriesFilter[categoryIndex].copy(isEnabled = !event.category.isEnabled)
             }
