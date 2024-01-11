@@ -4,4 +4,5 @@
     <color name="teal_300">#FF4DB6AC</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="ic_launcher_background">#3F3E3E</color>
 </resources>

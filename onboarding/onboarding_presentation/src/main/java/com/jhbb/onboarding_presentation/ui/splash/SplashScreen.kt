@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
 import androidx.compose.material.Surface
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -18,7 +16,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.jhbb.core_ui.R
 import com.jhbb.core_ui.ui.theme.MoneyTrackerTheme
 import com.jhbb.core_ui.utils.MultiThemePreview
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -50,7 +50,7 @@ internal fun SplashScreen(
             contentAlignment = Alignment.Center,
         ) {
             Icon(
-                imageVector = Icons.Default.CheckCircle,
+                painter = painterResource(id = R.drawable.ic_money_tracker),
                 contentDescription = null,
                 modifier = Modifier
                     .size(130.dp)
