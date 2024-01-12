@@ -31,3 +31,9 @@ O app foi separado em módulos respeitando as camadas da arquitetura utilizada, 
 Este desenho ilustra melhor a atual estrutura utilizada:
 
 ![architecture diagram](doc/architecture.png)
+
+- ***app***: Concentra todos os gráficos de navegação entre features;
+- ***onboarding***: Contém os arquivos referentes ao fluxo de onboarding do usuário;
+- ***tracker***: Contém todo o fluxo de registro de despesa/receita do app;
+- ***core***: Possui todo código que pode ser compartilhado entre os módulos, desde regras de negócio e utilitários até componentes de UI e o próprio tema do aplicativo;
+- ***test_helper***: Classes utilitárias para auxiliar na execução de testes.
