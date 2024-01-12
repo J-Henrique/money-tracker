@@ -21,13 +21,13 @@ A ideia é implementar uma simples ferramenta de controle de gastos, porém em u
 As atuais funcionalidades do aplicativo são:
 - Permitir o usuário selecionar a partir de um processo de onboarding as categorias que deseja utilizar para lançar gastos;
 - Criar registros de despesas ou receitas, onde a informação é persistida localmente e sincronizada com um servidor (atualmente este serviço está sendo mockado);
-- Alternar entre dark e light mode
+- Alternar entre dark e light mode.
 
 ## 🏠 Arquitetura
-Foi utilizado [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) para o desenvolvimento desse projeto, a fim de que as camadas estejam bem desacopladas, permitindo uma melhor escalabilidade e realização de testes.
+Foi utilizado [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) para o desenvolvimento deste projeto, a fim de que as camadas estejam bem desacopladas; permitindo uma melhor escalabilidade e realização de testes.
 
 O app foi separado em módulos respeitando as camadas da arquitetura utilizada, além de permitir um melhor build time conforme o projeto cresce.
 
-Esse desenho exemplifica melhor a atual estrutura utilizada:
+Este desenho ilustra melhor a atual estrutura utilizada:
 
 ![architecture diagram](doc/architecture.png)
