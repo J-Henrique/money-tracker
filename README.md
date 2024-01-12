@@ -1,5 +1,4 @@
 <img src="app/src/main/ic_launcher-playstore.png" width="200">
-![app icon](https://github.com/J-Henrique/money-tracker/blob/master/app/src/main/ic_launcher-playstore.png)
 
 # Money Tracker
 Este projeto é destinado à estudos de novas tecnologias e ferramentas envolvendo desenvolvimento Android.
@@ -28,4 +27,7 @@ As atuais funcionalidades do aplicativo são:
 Foi utilizado [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) para o desenvolvimento desse projeto, a fim de que as camadas estejam bem desacopladas, permitindo uma melhor escalabilidade e realização de testes.
 
 O app foi separado em módulos respeitando as camadas da arquitetura utilizada, além de permitir um melhor build time conforme o projeto cresce.
-<img src="app/src/main/ic_launcher-playstore.png">
+
+Esse desenho exemplifica melhor a atual estrutura utilizada:
+
+![architecture diagram](doc/architecture.png)
